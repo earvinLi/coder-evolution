@@ -1,4 +1,5 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -17,12 +18,18 @@ import { makeStyles } from '@material-ui/core/styles';
 // Internal Dependencies
 import WeekOneItemList from './WeekOneItemList';
 import getSidebarStyles from './styles/SidebarStyle';
+import { toggleWeekItemList } from '../UI/SidebarUI/actions/SidebarUIAction';
 
 // Component Definition
-const Sidebar = () => {
+const Sidebar = (props) => {
   const {
     collapseStyle,
   } = makeStyles((theme) => getSidebarStyles(theme))();
+
+  const {
+    onToggleWeekItemList,
+    weekItemListIsOpen,
+  } = props;
 
   const ListItems = [
     { title: 'Week One', icon: <LooksOneRoundedIcon />, itemList: <WeekOneItemList /> },
@@ -38,7 +45,10 @@ const Sidebar = () => {
 
     return (
       <div key={title}>
-        <ListItem button>
+        <ListItem
+          button
+          onClick={() => onToggleWeekItemList(title)}
+        >
           <ListItemIcon>
             {icon}
           </ListItemIcon>
@@ -46,7 +56,7 @@ const Sidebar = () => {
         </ListItem>
         <Collapse
           className={collapseStyle}
-          in
+          in={weekItemListIsOpen.includes(title)}
           timeout="auto"
           unmountOnExit
         >
@@ -63,21 +73,17 @@ const Sidebar = () => {
   );
 };
 
-const mapStateToProps = (state) => {
-  // TODO: Use one variable to control the visibilities of all four lists
-  const {
-    weekOneItemListIsOpen,
-    weekTwoItemListIsOpen,
-    weekThreeItemListIsOpen,
-    weekFourItemListIsOpen,
-  } = state.UI.Sidebar;
-
-  return {
-    weekOneItemListIsOpen,
-    weekTwoItemListIsOpen,
-    weekThreeItemListIsOpen,
-    weekFourItemListIsOpen,
-  };
+Sidebar.propTypes = {
+  onToggleWeekItemList: PropTypes.func.isRequired,
+  weekItemListIsOpen: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps, {})(Sidebar);
+const mapStateToProps = (state) => {
+  const { weekItemListIsOpen } = state.UI.Sidebar;
+
+  return { weekItemListIsOpen };
+};
+
+export default connect(mapStateToProps, {
+  onToggleWeekItemList: toggleWeekItemList,
+})(Sidebar);
