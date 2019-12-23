@@ -2,8 +2,8 @@
 import { combineReducers } from 'redux';
 
 // Internal Dependencies
-import UIReducer from '../UI/UIReducer';
+import SidebarUIReducer from './SidebarUI/reducers/SidebarUIReducer';
 
 export default combineReducers({
-  UI: UIReducer,
+  Sidebar: SidebarUIReducer,
 });
