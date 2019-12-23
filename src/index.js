@@ -1,12 +1,42 @@
+// External Dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import ReduxThunk from 'redux-thunk';
+import {
+  compose,
+  createStore,
+  applyMiddleware,
+} from 'redux';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Material-UI Dependencies
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+} from '@material-ui/core/styles';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Internal Dependencies
+import App from './App/App';
+import AppReducer from './App/AppReducer';
+
+// Redux Configuration
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const appStore = createStore(AppReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
+
+// Material-UI theme Configuration
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      contrastText: '#fff',
+      main: '#4AA3DF',
+    },
+  },
+});
+
+ReactDOM.render((
+  <Provider store={appStore}>
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
+  </Provider>
+), document.getElementById('root'));
