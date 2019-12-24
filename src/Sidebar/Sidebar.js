@@ -24,6 +24,7 @@ import { toggleWeekItemList } from '../UI/SidebarUI/actions/SidebarUIAction';
 const Sidebar = (props) => {
   const {
     collapseStyle,
+    listStyle,
   } = makeStyles((theme) => getSidebarStyles(theme))();
 
   const {
@@ -67,7 +68,7 @@ const Sidebar = (props) => {
   });
 
   return (
-    <List>
+    <List className={listStyle}>
       {ListItems}
     </List>
   );
