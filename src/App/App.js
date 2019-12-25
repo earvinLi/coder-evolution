@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import AppHeader from '../AppHeader/AppHeader';
-import ArticleDisplay from '../ArticleDisplay/ArticleDisplay';
+import Article from '../ArticleDisplay/Article';
 import getAppStyles from './AppStyle';
 import Sidebar from '../Sidebar/Sidebar';
 
@@ -22,7 +22,7 @@ const App = () => {
       <AppHeader />
       <div className={appContainerStyle}>
         <Sidebar />
-        <ArticleDisplay />
+        <Article />
       </div>
     </>
   );
