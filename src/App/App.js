@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import AppHeader from '../AppHeader/AppHeader';
-import Article from '../ArticleDisplay/Article';
+import Article from '../Article/Article';
 import getAppStyles from './AppStyle';
 import Sidebar from '../Sidebar/Sidebar';
 

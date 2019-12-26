@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 
 // Internal Dependencies
-import ArticleReducer from '../ArticleDisplay/reducers';
+import ArticleReducer from '../Article/reducers';
 import UIReducer from '../UI/UIReducer';
 
 export default combineReducers({
