@@ -8,6 +8,14 @@ import {
 
 export const closeArticleEditor = createActionCreator(CLOSE_ARTICLE_EDITOR);
 
-export const saveArticleText = createActionCreator(SAVE_ARTICLE_TEXT, 'currentArticle');
+export const saveArticleText = (articleText) => (dispatch, getState) => {
+  const { currentArticle } = getState().UI.Sidebar;
+  window.localStorage.setItem(currentArticle, articleText);
+
+  dispatch({
+    type: SAVE_ARTICLE_TEXT,
+    savedArticle: articleText,
+  });
+};
 
 export const updateArticleText = createActionCreator(UPDATE_ARTICLE_TEXT, 'articleText');

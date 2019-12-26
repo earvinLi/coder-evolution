@@ -1,7 +1,7 @@
 // External Dependencies
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 // Material-UI Dependencies
@@ -12,7 +12,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import getArticleDisplayStyles from './styles/ArticleDisplayStyle';
-import { openArticleEditor } from './actions/ArticleDisplayAction';
+import {
+  fetchArticle,
+  openArticleEditor,
+} from './actions/ArticleDisplayAction';
 
 // Component Definition
 const ArticleDisplay = (props) => {
@@ -21,11 +24,18 @@ const ArticleDisplay = (props) => {
   } = makeStyles((theme) => getArticleDisplayStyles(theme))();
 
   const {
-    currentArticle,
+    fetchedArticle,
+    onFetchArticle,
     onOpenArticleEditor,
+    savedArticle,
   } = props;
 
-  const markedText = marked(currentArticle);
+  // TODO: Change not to use expensive 'savedArticle' for fetches and rerenders
+  useEffect(() => {
+    onFetchArticle();
+  }, [onFetchArticle, savedArticle]);
+
+  const markedText = marked(fetchedArticle);
 
   return (
     <Paper className={paperStyle}>
@@ -44,17 +54,31 @@ const ArticleDisplay = (props) => {
   );
 };
 
+// Prop Validations
 ArticleDisplay.propTypes = {
-  currentArticle: PropTypes.string.isRequired,
+  fetchedArticle: PropTypes.string.isRequired,
+  onFetchArticle: PropTypes.func.isRequired,
   onOpenArticleEditor: PropTypes.func.isRequired,
+  savedArticle: PropTypes.string,
+};
+
+ArticleDisplay.defaultProps = {
+  savedArticle: '',
 };
 
 const mapStateToProps = (state) => {
-  const { currentArticle } = state.Article.ArticleDisplay;
+  const {
+    fetchedArticle,
+    savedArticle,
+  } = state.Article.ArticleDisplay;
 
-  return { currentArticle };
+  return {
+    fetchedArticle,
+    savedArticle,
+  };
 };
 
 export default connect(mapStateToProps, {
+  onFetchArticle: fetchArticle,
   onOpenArticleEditor: openArticleEditor,
 })(ArticleDisplay);

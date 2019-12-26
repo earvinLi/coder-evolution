@@ -54,3 +54,8 @@ this.setState((state, props) => ({
 ```
 <button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
 ```
+
+---
+
+1. Finished Introduction and Chapter 2 Program Structure.
+2. I need to finish more on Clean Code. I need to finish more on Clean Code.

@@ -153,5 +153,6 @@ console.log(rusty.constructor)  // ƒ Dog(breed, name) { ... }
 12. The time you pass in to setTimeout function does not relate to the delay of its execution. The Event Manager will wait the given time before moving that function into the Callback Queue. The Call Stack is constantly checked whether it is empty or not. When it is empty, the Callback Queue is checked if there is a function waiting to be invoked. When there is a function waiting, the first function in the queue is pushed into the Call Stack, which will run it. This checking process is called a ‘tick’ in the Event Loop.
 
 ---
+
 1. Found [Eloquent JavaScript](https://eloquentjavascript.net/). Finished Introduction and Chapter 1 Values, Types and Operators.
 2. I need to finish more on Clean Code.

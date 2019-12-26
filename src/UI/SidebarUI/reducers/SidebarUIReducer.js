@@ -6,8 +6,8 @@ import {
 } from '../../../App/ActionTypes';
 
 const INITIAL_STATE = {
-  weekItemListIsOpen: [],
-  currentArticle: '',
+  weekItemListIsOpen: ['Week One'],
+  currentArticle: 'javascript-foundations',
 };
 
 const openArticleDisplay = (state, action) => ({
