@@ -18,7 +18,10 @@ import { makeStyles } from '@material-ui/core/styles';
 // Internal Dependencies
 import WeekOneItemList from './WeekOneItemList';
 import getSidebarStyles from './styles/SidebarStyle';
-import { toggleWeekItemList } from '../UI/SidebarUI/actions/SidebarUIAction';
+import {
+  openArticleDisplay,
+  toggleWeekItemList,
+} from '../UI/SidebarUI/actions/SidebarUIAction';
 
 // Component Definition
 const Sidebar = (props) => {
@@ -28,15 +31,16 @@ const Sidebar = (props) => {
   } = makeStyles((theme) => getSidebarStyles(theme))();
 
   const {
+    onOpenArticleDisplay,
     onToggleWeekItemList,
     weekItemListIsOpen,
   } = props;
 
   const ListItems = [
-    { title: 'Week One', icon: <LooksOneRoundedIcon />, itemList: <WeekOneItemList /> },
-    { title: 'Week Two', icon: <LooksTwoRoundedIcon />, itemList: '' },
-    { title: 'Week Three', icon: <Looks3RoundedIcon />, itemList: '' },
-    { title: 'Week Four', icon: <Looks4RoundedIcon />, itemList: '' },
+    { icon: <LooksOneRoundedIcon />, itemList: <WeekOneItemList onSubitemClick={onOpenArticleDisplay} />, title: 'Week One' },
+    { icon: <LooksTwoRoundedIcon />, itemList: '', title: 'Week Two' },
+    { icon: <Looks3RoundedIcon />, itemList: '', title: 'Week Three' },
+    { icon: <Looks4RoundedIcon />, itemList: '', title: 'Week Four' },
   ].map((listItem) => {
     const {
       icon,
@@ -77,6 +81,7 @@ const Sidebar = (props) => {
 };
 
 Sidebar.propTypes = {
+  onOpenArticleDisplay: PropTypes.func.isRequired,
   onToggleWeekItemList: PropTypes.func.isRequired,
   weekItemListIsOpen: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -88,5 +93,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  onOpenArticleDisplay: openArticleDisplay,
   onToggleWeekItemList: toggleWeekItemList,
 })(Sidebar);

@@ -1,5 +1,11 @@
 // Internal Dependencies
-import { TOGGLE_WEEK_ITEM_LIST } from '../../../App/ActionTypes';
+import { createActionCreator } from '../../../App/RootUtilities';
+import {
+  OPEN_ARTICLE_DISPLAY,
+  TOGGLE_WEEK_ITEM_LIST,
+} from '../../../App/ActionTypes';
+
+export const openArticleDisplay = createActionCreator(OPEN_ARTICLE_DISPLAY, 'articleName');
 
 // eslint-disable-next-line import/prefer-default-export
 export const toggleWeekItemList = (week) => (dispatch, getState) => {
