@@ -25,6 +25,8 @@ const ArticleDisplay = (props) => {
     onOpenArticleEditor,
   } = props;
 
+  const onEditButtonClick = () => onOpenArticleEditor(currentArticle);
+
   const markedText = marked(currentArticle);
 
   return (
@@ -35,7 +37,7 @@ const ArticleDisplay = (props) => {
         color="primary"
         size="large"
         startIcon={<EditIcon />}
-        onClick={() => onOpenArticleEditor(currentArticle)}
+        onClick={onEditButtonClick}
         variant="contained"
       >
         Edit

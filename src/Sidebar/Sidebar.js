@@ -44,11 +44,13 @@ const Sidebar = (props) => {
       title,
     } = listItem;
 
+    const onWeekListClick = () => onToggleWeekItemList(title);
+
     return (
       <div key={title}>
         <ListItem
           button
-          onClick={() => onToggleWeekItemList(title)}
+          onClick={onWeekListClick}
         >
           <ListItemIcon>
             {icon}

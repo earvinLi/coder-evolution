@@ -31,6 +31,11 @@ const ArticleEditor = (props) => {
     onUpdateArticleText,
   } = props;
 
+  const onSaveButtonClick = () => {
+    onSaveArticleText(articleText);
+    onCloseArticleEditor();
+  };
+
   return (
     <Paper className={paperStyle}>
       <TextareaAutosize
@@ -39,10 +44,7 @@ const ArticleEditor = (props) => {
       />
       <Button
         color="primary"
-        onClick={() => {
-          onSaveArticleText(articleText);
-          onCloseArticleEditor();
-        }}
+        onClick={onSaveButtonClick}
         size="large"
         startIcon={<EditIcon />}
         variant="contained"
