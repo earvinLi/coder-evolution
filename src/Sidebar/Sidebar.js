@@ -9,6 +9,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LooksOneRoundedIcon from '@material-ui/icons/LooksOneRounded';
 import LooksTwoRoundedIcon from '@material-ui/icons/LooksTwoRounded';
 import Looks3RoundedIcon from '@material-ui/icons/Looks3Rounded';
@@ -18,10 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // Internal Dependencies
 import WeekOneItemList from './WeekOneItemList';
 import getSidebarStyles from './styles/SidebarStyle';
-import {
-  openArticleDisplay,
-  toggleWeekItemList,
-} from '../UI/SidebarUI/actions/SidebarUIAction';
+import { toggleWeekItemList } from '../UI/SidebarUI/actions/SidebarUIAction';
 
 // Component Definition
 const Sidebar = (props) => {
@@ -31,13 +30,12 @@ const Sidebar = (props) => {
   } = makeStyles((theme) => getSidebarStyles(theme))();
 
   const {
-    onOpenArticleDisplay,
     onToggleWeekItemList,
     weekItemListIsOpen,
   } = props;
 
   const ListItems = [
-    { icon: <LooksOneRoundedIcon />, itemList: <WeekOneItemList onSubitemClick={onOpenArticleDisplay} />, title: 'Week One' },
+    { icon: <LooksOneRoundedIcon />, itemList: <WeekOneItemList />, title: 'Week One' },
     { icon: <LooksTwoRoundedIcon />, itemList: '', title: 'Week Two' },
     { icon: <Looks3RoundedIcon />, itemList: '', title: 'Week Three' },
     { icon: <Looks4RoundedIcon />, itemList: '', title: 'Week Four' },
@@ -48,6 +46,7 @@ const Sidebar = (props) => {
       title,
     } = listItem;
 
+    const sublistIsOpen = weekItemListIsOpen.includes(title);
     const onWeekListClick = () => onToggleWeekItemList(title);
 
     return (
@@ -60,10 +59,11 @@ const Sidebar = (props) => {
             {icon}
           </ListItemIcon>
           <ListItemText primary={title} />
+          {sublistIsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ListItem>
         <Collapse
           className={collapseStyle}
-          in={weekItemListIsOpen.includes(title)}
+          in={sublistIsOpen}
           timeout="auto"
           unmountOnExit
         >
@@ -81,7 +81,6 @@ const Sidebar = (props) => {
 };
 
 Sidebar.propTypes = {
-  onOpenArticleDisplay: PropTypes.func.isRequired,
   onToggleWeekItemList: PropTypes.func.isRequired,
   weekItemListIsOpen: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -93,6 +92,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  onOpenArticleDisplay: openArticleDisplay,
   onToggleWeekItemList: toggleWeekItemList,
 })(Sidebar);

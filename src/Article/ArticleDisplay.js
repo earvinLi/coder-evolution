@@ -24,6 +24,7 @@ const ArticleDisplay = (props) => {
   } = makeStyles((theme) => getArticleDisplayStyles(theme))();
 
   const {
+    currentArticle,
     fetchedArticle,
     onFetchArticle,
     onOpenArticleEditor,
@@ -33,7 +34,7 @@ const ArticleDisplay = (props) => {
   // TODO: Change not to use expensive 'savedArticle' for fetches and rerenders
   useEffect(() => {
     onFetchArticle();
-  }, [onFetchArticle, savedArticle]);
+  }, [currentArticle, onFetchArticle, savedArticle]);
 
   const markedText = marked(fetchedArticle);
 
@@ -56,6 +57,7 @@ const ArticleDisplay = (props) => {
 
 // Prop Validations
 ArticleDisplay.propTypes = {
+  currentArticle: PropTypes.string.isRequired,
   fetchedArticle: PropTypes.string.isRequired,
   onFetchArticle: PropTypes.func.isRequired,
   onOpenArticleEditor: PropTypes.func.isRequired,
@@ -71,8 +73,10 @@ const mapStateToProps = (state) => {
     fetchedArticle,
     savedArticle,
   } = state.Article.ArticleDisplay;
+  const { currentArticle } = state.UI.Sidebar;
 
   return {
+    currentArticle,
     fetchedArticle,
     savedArticle,
   };
