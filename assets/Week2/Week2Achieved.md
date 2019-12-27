@@ -55,6 +55,31 @@ this.setState((state, props) => ({
 <button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
 ```
 
+4. Every HTML form control, such as `<input />` and `<textarea />`, needs to be labeled accessibly. The `for` attribute is written as `htmlFor` in JSX. For focus management, check [`react-aria-modal`](https://github.com/davidtheclark/react-aria-modal). [Mouse and pointer events example](https://reactjs.org/docs/accessibility.html#mouse-and-pointer-events) is very good. [Other points for consideration](https://reactjs.org/docs/accessibility.html#other-points-for-consideration) is also very useful, e.g. [react-document-title](https://github.com/gaearon/react-document-title). Testing with a screen reader should form part of your accessibility tests.
+
+5. Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which can dramatically improve the performance of your app:
+```
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import MyErrorBoundary from './MyErrorBoundary';
+
+const Home = lazy(() => import('./routes/Home'));
+const About = lazy(() => import('./routes/About'));
+
+const App = () => (
+  <Router>
+    <MyErrorBoundary>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+        </Switch>
+      </Suspense>
+    </MyErrorBoundary>
+  </Router>
+);
+```
+
 ---
 
 1. Finished Introduction and Chapter 2 Program Structure.
