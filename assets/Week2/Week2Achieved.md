@@ -80,6 +80,25 @@ const App = () => (
 );
 ```
 
+6. Context:
+```
+// ThemeContext is imported
+<ThemeContext.Consumer>
+  // {theme, toggleTheme} is from Provider's value
+  // which is App's state (same shape as the default context value)
+  {({theme, toggleTheme}) => (
+    <button
+      onClick={toggleTheme}
+      style={{backgroundColor: theme.background}}>
+      Toggle Theme
+    </button>
+  )}
+</ThemeContext.Consumer>
+```
+If two or more context values are often used together, you might want to consider creating your own render prop component that provides both.
+
+7. It is worse to leave corrupted UI in place than to completely remove it. Check [the demo](https://codepen.io/gaearon/pen/wqvxGa?editors=0010) for using `<ErrorBoundary />` with the help of `getDerivedStateFromError()` and `componentDidCatch()`. We also encourage you to use JS error reporting services (or build your own) so that you can learn about unhandled exceptions as they happen in production, and fix them.
+
 ---
 
 1. Finished Introduction and Chapter 2 Program Structure.
