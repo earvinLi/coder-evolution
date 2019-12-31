@@ -6,5 +6,6 @@ export default ((theme) => ({
     borderRight: '1px solid grey',
     flexGrow: 1,
     maxWidth: 320,
+    minWidth: 320,
   },
 }));

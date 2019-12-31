@@ -1,3 +1,15 @@
+// Fetch Helper
+export const fetchRequest = async (url, options = {}) => {
+  const optionsToUse = options;
+  optionsToUse.headers = options.headers || {};
+  // optionsToUse.headers.authorization = `Bearer ${token || ''}`;
+  optionsToUse.headers['Content-Type'] = 'application/json';
+
+  const fetchedJSON = await fetch(url, optionsToUse);
+  const fetched = await fetchedJSON.json();
+  return fetched;
+};
+
 // Action Helper
 export const createActionCreator = (type, ...argNames) => (...args) => {
   const action = { type };
