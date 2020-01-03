@@ -20,6 +20,7 @@ import {
 // Component Definition
 const ArticleDisplay = (props) => {
   const {
+    articleContainerStyle,
     paperStyle,
   } = makeStyles((theme) => getArticleDisplayStyles(theme))();
 
@@ -40,8 +41,11 @@ const ArticleDisplay = (props) => {
 
   return (
     <Paper className={paperStyle}>
-      {/* eslint-disable-next-line react/no-danger */}
-      <div dangerouslySetInnerHTML={{ __html: markedText }} />
+      <div
+        className={articleContainerStyle}
+        /* eslint-disable-next-line react/no-danger */
+        dangerouslySetInnerHTML={{ __html: markedText }}
+      />
       <Button
         color="primary"
         size="large"

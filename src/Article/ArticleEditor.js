@@ -7,11 +7,10 @@ import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
-import getArticleDisplayStyles from './styles/ArticleDisplayStyle';
+import getArticleEditorStyles from './styles/ArticleEditorStyle';
 import {
   closeArticleEditor,
   saveArticleText,
@@ -21,8 +20,9 @@ import {
 // Component Definition
 const ArticleEditor = (props) => {
   const {
+    editorContainerStyle,
     paperStyle,
-  } = makeStyles((theme) => getArticleDisplayStyles(theme))();
+  } = makeStyles((theme) => getArticleEditorStyles(theme))();
 
   const {
     articleText,
@@ -38,7 +38,8 @@ const ArticleEditor = (props) => {
 
   return (
     <Paper className={paperStyle}>
-      <TextareaAutosize
+      <textarea
+        className={editorContainerStyle}
         onChange={(event) => onUpdateArticleText(event.target.value)}
         value={articleText}
       />

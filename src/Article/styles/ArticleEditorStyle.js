@@ -1,6 +1,7 @@
 export default (() => ({
-  articleContainerStyle: {
+  editorContainerStyle: {
     flexGrow: 1,
+    fontSize: 18,
     overflow: 'auto',
   },
   paperStyle: {
