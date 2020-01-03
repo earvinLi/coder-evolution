@@ -2,7 +2,9 @@
 import React from 'react';
 
 // Material-UI Dependencies
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -11,6 +13,14 @@ const AppHeader = () => (
   <AppBar position="static">
     <Toolbar>
       <Typography variant="h6">Coder Evolution</Typography>
+      <div style={{ flexGrow: 1 }} />
+      <IconButton
+        aria-label="account of current user"
+        color="inherit"
+        edge="end"
+      >
+        <AccountCircleIcon />
+      </IconButton>
     </Toolbar>
   </AppBar>
 );
