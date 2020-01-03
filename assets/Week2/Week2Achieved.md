@@ -1,6 +1,6 @@
 # Week2
 
-### Walked through [React Doc](https://reactjs.org/docs) and key takeaways are:
+### Walked through [React Doc](https://reactjs.org/docs)(_Right now just finished Installation, Main Concepts, Advanced Guides, Hooks except hooks faq_) and key takeaways are:
 
 1. JSX represents objects:
 ```
@@ -255,5 +255,5 @@ With `PropTypes.element` you can specify that only a single child can be passed 
 
 ---
 
-1. Finished Introduction, Chapter 2 Program Structure and Chapter3 Functions.
+1. Finished Introduction, Chapter 2 Program Structure and Chapter 3 Functions.
 2. I need to finish more on Clean Code. I need to finish more on Clean Code.
