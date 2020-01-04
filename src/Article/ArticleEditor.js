@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import getArticleEditorStyles from './styles/ArticleEditorStyle';
+import MarkdownViewer from '../SharedUnits/MarkdownViewer';
 import {
   closeArticleEditor,
   saveArticleText,
@@ -23,6 +24,8 @@ const ArticleEditor = (props) => {
     buttonStyle,
     buttonContainerStyle,
     editorContainerStyle,
+    editorInputStyle,
+    markdownViewerStyle,
     paperStyle,
   } = makeStyles((theme) => getArticleEditorStyles(theme))();
 
@@ -33,20 +36,24 @@ const ArticleEditor = (props) => {
     onUpdateArticleText,
   } = props;
 
-  const onPreviewButtonClick = () => {};
-
   const onSaveButtonClick = () => {
-    // onSaveArticleText(articleText);
+    onSaveArticleText(articleText);
     onCloseArticleEditor();
   };
 
   return (
     <Paper className={paperStyle}>
-      <textarea
-        className={editorContainerStyle}
-        onChange={(event) => onUpdateArticleText(event.target.value)}
-        value={articleText}
-      />
+      <div className={editorContainerStyle}>
+        <textarea
+          className={editorInputStyle}
+          onChange={(event) => onUpdateArticleText(event.target.value)}
+          value={articleText}
+        />
+        <MarkdownViewer
+          markdownText={articleText}
+          variantStyle={markdownViewerStyle}
+        />
+      </div>
       <div className={buttonContainerStyle}>
         <Button
           className={buttonStyle}

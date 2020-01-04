@@ -17,13 +17,14 @@ const MarkdownViewer = (props) => {
 
   const {
     markdownText,
+    variantStyle,
   } = props;
 
   const markedText = marked(markdownText);
 
   return (
     <div
-      className={articleContainerStyle}
+      className={`${articleContainerStyle} ${variantStyle}`}
       /* eslint-disable-next-line react/no-danger */
       dangerouslySetInnerHTML={{ __html: markedText }}
     />
@@ -33,6 +34,11 @@ const MarkdownViewer = (props) => {
 // Prop Validations
 MarkdownViewer.propTypes = {
   markdownText: PropTypes.string.isRequired,
+  variantStyle: PropTypes.shape({}),
+};
+
+MarkdownViewer.defaultProps = {
+  variantStyle: {},
 };
 
 export default MarkdownViewer;

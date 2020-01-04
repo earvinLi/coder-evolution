@@ -8,9 +8,18 @@ export default ((theme) => ({
     justifyContent: 'flex-end',
   },
   editorContainerStyle: {
+    display: 'flex',
+    flexGrow: 1,
+    overflow: 'auto',
+  },
+  editorInputStyle: {
     flexGrow: 1,
     fontSize: 18,
     overflow: 'auto',
+    width: '50%',
+  },
+  markdownViewerStyle: {
+    width: '50%',
   },
   paperStyle: {
     display: 'flex',
