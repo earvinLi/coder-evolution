@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 // Material-UI Dependencies
 import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
 import Paper from '@material-ui/core/Paper';
+import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
@@ -20,6 +20,8 @@ import {
 // Component Definition
 const ArticleEditor = (props) => {
   const {
+    buttonStyle,
+    buttonContainerStyle,
     editorContainerStyle,
     paperStyle,
   } = makeStyles((theme) => getArticleEditorStyles(theme))();
@@ -31,8 +33,10 @@ const ArticleEditor = (props) => {
     onUpdateArticleText,
   } = props;
 
+  const onPreviewButtonClick = () => {};
+
   const onSaveButtonClick = () => {
-    onSaveArticleText(articleText);
+    // onSaveArticleText(articleText);
     onCloseArticleEditor();
   };
 
@@ -43,15 +47,17 @@ const ArticleEditor = (props) => {
         onChange={(event) => onUpdateArticleText(event.target.value)}
         value={articleText}
       />
-      <Button
-        color="primary"
-        onClick={onSaveButtonClick}
-        size="large"
-        startIcon={<EditIcon />}
-        variant="contained"
-      >
-        Save
-      </Button>
+      <div className={buttonContainerStyle}>
+        <Button
+          className={buttonStyle}
+          color="primary"
+          onClick={onSaveButtonClick}
+          size="large"
+          startIcon={<SaveOutlinedIcon />}
+        >
+          Save
+        </Button>
+      </div>
     </Paper>
   );
 };

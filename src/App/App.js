@@ -1,5 +1,7 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Material-UI Dependencies
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,20 +14,33 @@ import Sidebar from '../Sidebar/Sidebar';
 
 
 // Component Definition
-const App = () => {
+const App = (props) => {
   const {
     appContainerStyle,
   } = makeStyles((theme) => getAppStyles(theme))();
+
+  const { articleEditorIsOpen } = props;
 
   return (
     <>
       <AppHeader />
       <div className={appContainerStyle}>
-        <Sidebar />
+        {!articleEditorIsOpen && <Sidebar />}
         <Article />
       </div>
     </>
   );
 };
 
-export default App;
+// Prop Validations
+App.propTypes = {
+  articleEditorIsOpen: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { isOpen: articleEditorIsOpen } = state.Article.ArticleEditor;
+
+  return { articleEditorIsOpen };
+};
+
+export default connect(mapStateToProps, null)(App);

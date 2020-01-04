@@ -1,4 +1,12 @@
-export default (() => ({
+export default ((theme) => ({
+  buttonStyle: {
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(2),
+  },
+  buttonContainerStyle: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   editorContainerStyle: {
     flexGrow: 1,
     fontSize: 18,
@@ -8,7 +16,7 @@ export default (() => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
-    margin: 32,
+    margin: theme.spacing(3),
     overflow: 'auto',
   },
 }));
