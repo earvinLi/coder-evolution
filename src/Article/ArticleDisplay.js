@@ -1,6 +1,5 @@
 // External Dependencies
 import PropTypes from 'prop-types';
-import marked from 'marked';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
@@ -12,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import getArticleDisplayStyles from './styles/ArticleDisplayStyle';
+import MarkdownViewer from '../SharedUnits/MarkdownViewer';
 import {
   fetchArticle,
   openArticleEditor,
@@ -20,7 +20,6 @@ import {
 // Component Definition
 const ArticleDisplay = (props) => {
   const {
-    articleContainerStyle,
     buttonStyle,
     buttonContainerStyle,
     paperStyle,
@@ -39,15 +38,9 @@ const ArticleDisplay = (props) => {
     onFetchArticle();
   }, [currentArticle, onFetchArticle, savedArticle]);
 
-  const markedText = marked(fetchedArticle);
-
   return (
     <Paper className={paperStyle}>
-      <div
-        className={articleContainerStyle}
-        /* eslint-disable-next-line react/no-danger */
-        dangerouslySetInnerHTML={{ __html: markedText }}
-      />
+      <MarkdownViewer markdownText={fetchedArticle} />
       <div className={buttonContainerStyle}>
         <Button
           className={buttonStyle}
