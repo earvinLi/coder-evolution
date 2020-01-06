@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
+import ContentLoadingScreen from '../SharedUnits/ContentLoadingScreen';
 import getArticleDisplayStyles from './styles/ArticleDisplayStyle';
 import MarkdownViewer from '../SharedUnits/MarkdownViewer';
 import {
@@ -38,22 +39,29 @@ const ArticleDisplay = (props) => {
     onFetchArticle();
   }, [currentArticle, onFetchArticle, savedArticle]);
 
-  return (
-    <Paper className={paperStyle}>
-      <MarkdownViewer markdownText={fetchedArticle} />
-      <div className={buttonContainerStyle}>
-        <Button
-          className={buttonStyle}
-          color="primary"
-          size="large"
-          startIcon={<EditOutlinedIcon />}
-          onClick={onOpenArticleEditor}
-        >
-          Edit
-        </Button>
-      </div>
-    </Paper>
-  );
+  const isFetching = true;
+  return isFetching
+    ? (
+      <ContentLoadingScreen
+        loadingContent="your article"
+      />
+    )
+    : (
+      <Paper className={paperStyle}>
+        <MarkdownViewer markdownText={fetchedArticle} />
+        <div className={buttonContainerStyle}>
+          <Button
+            className={buttonStyle}
+            color="primary"
+            size="large"
+            startIcon={<EditOutlinedIcon />}
+            onClick={onOpenArticleEditor}
+          >
+            Edit
+          </Button>
+        </div>
+      </Paper>
+    );
 };
 
 // Prop Validations

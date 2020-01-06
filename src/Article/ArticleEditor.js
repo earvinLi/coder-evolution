@@ -36,6 +36,8 @@ const ArticleEditor = (props) => {
     onUpdateArticleText,
   } = props;
 
+  const onArticleTextInput = (event) => onUpdateArticleText(event.target.value);
+
   const onSaveButtonClick = () => {
     onSaveArticleText(articleText);
     onCloseArticleEditor();
@@ -46,7 +48,7 @@ const ArticleEditor = (props) => {
       <div className={editorContainerStyle}>
         <textarea
           className={editorInputStyle}
-          onChange={(event) => onUpdateArticleText(event.target.value)}
+          onChange={onArticleTextInput}
           value={articleText}
         />
         <MarkdownViewer

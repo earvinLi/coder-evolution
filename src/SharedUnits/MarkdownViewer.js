@@ -34,11 +34,11 @@ const MarkdownViewer = (props) => {
 // Prop Validations
 MarkdownViewer.propTypes = {
   markdownText: PropTypes.string.isRequired,
-  variantStyle: PropTypes.shape({}),
+  variantStyle: PropTypes.string,
 };
 
 MarkdownViewer.defaultProps = {
-  variantStyle: {},
+  variantStyle: '',
 };
 
 export default MarkdownViewer;
