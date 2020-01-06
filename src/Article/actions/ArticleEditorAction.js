@@ -13,18 +13,17 @@ export const closeArticleEditor = createActionCreator(CLOSE_ARTICLE_EDITOR);
 
 export const saveArticleText = (articleText) => async (dispatch, getState) => {
   const { currentArticle } = getState().UI.Sidebar;
-  const savedArticle = await fetchRequest('https://ibr6yzhzy4.execute-api.ap-northeast-1.amazonaws.com/prod/articles', {
+  await fetchRequest('https://ibr6yzhzy4.execute-api.ap-northeast-1.amazonaws.com/prod/articles', {
     method: 'PUT',
     body: JSON.stringify({
       articleName: currentArticle,
       articleText,
     }),
   });
-  console.log(savedArticle);
 
   dispatch({
     type: SAVE_ARTICLE_TEXT,
-    savedArticle,
+    articleSavedTime: Date.now(),
   });
 };
 

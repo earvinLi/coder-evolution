@@ -7,7 +7,7 @@ import {
 
 const INITIAL_STATE = {
   fetchedArticle: '# Week One',
-  savedArticle: '',
+  articleSavedAt: '',
 };
 
 const fetchArticleText = (state, action) => ({
@@ -17,7 +17,7 @@ const fetchArticleText = (state, action) => ({
 
 const saveArticleText = (state, action) => ({
   ...state,
-  savedArticle: action.currentArticle,
+  articleSavedAt: action.articleSavedTime,
 });
 
 export default createReducer(INITIAL_STATE, {

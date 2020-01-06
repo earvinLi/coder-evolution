@@ -27,19 +27,19 @@ const ArticleDisplay = (props) => {
   } = makeStyles((theme) => getArticleDisplayStyles(theme))();
 
   const {
+    articleSavedAt,
     currentArticle,
     fetchedArticle,
     onFetchArticle,
     onOpenArticleEditor,
-    savedArticle,
   } = props;
 
-  // TODO: Change not to use expensive 'savedArticle' for fetches and rerenders
+  // TODO: Change to make every saving fetch the updated article
   useEffect(() => {
     onFetchArticle();
-  }, [currentArticle, onFetchArticle, savedArticle]);
+  }, [currentArticle, onFetchArticle, articleSavedAt]);
 
-  const isFetching = true;
+  const isFetching = false;
   return isFetching
     ? (
       <ContentLoadingScreen
@@ -66,15 +66,15 @@ const ArticleDisplay = (props) => {
 
 // Prop Validations
 ArticleDisplay.propTypes = {
+  articleSavedAt: PropTypes.number,
   currentArticle: PropTypes.string.isRequired,
   fetchedArticle: PropTypes.string.isRequired,
   onFetchArticle: PropTypes.func.isRequired,
   onOpenArticleEditor: PropTypes.func.isRequired,
-  savedArticle: PropTypes.string,
 };
 
 ArticleDisplay.defaultProps = {
-  savedArticle: '',
+  articleSavedAt: 0,
 };
 
 const mapStateToProps = (state) => {
