@@ -1,7 +1,7 @@
 export default ((theme) => ({
-  iconStyle: {
-    height: 80,
-    width: 80,
+  imageStyle: {
+    height: 400,
+    width: 384,
     marginBottom: theme.spacing(5),
   },
   paperStyle: {

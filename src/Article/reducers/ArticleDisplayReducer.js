@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   articleSavedTime: 0,
   fetchedArticleText: '# Week One',
-  isFetching: false,
+  isFetching: true,
 };
 
 const fetchArticleTextRequest = (state) => ({ ...state, isFetching: true });
