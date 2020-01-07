@@ -27,9 +27,10 @@ const ArticleDisplay = (props) => {
   } = makeStyles((theme) => getArticleDisplayStyles(theme))();
 
   const {
-    articleSavedAt,
+    articleSavedTime,
     currentArticle,
-    fetchedArticle,
+    fetchedArticleText,
+    isFetchingArticleText,
     onFetchArticle,
     onOpenArticleEditor,
   } = props;
@@ -37,10 +38,9 @@ const ArticleDisplay = (props) => {
   // TODO: Change to make every saving fetch the updated article
   useEffect(() => {
     onFetchArticle();
-  }, [currentArticle, onFetchArticle, articleSavedAt]);
+  }, [currentArticle, onFetchArticle, articleSavedTime]);
 
-  const isFetching = false;
-  return isFetching
+  return isFetchingArticleText
     ? (
       <ContentLoadingScreen
         loadingContent="your article"
@@ -48,7 +48,7 @@ const ArticleDisplay = (props) => {
     )
     : (
       <Paper className={paperStyle}>
-        <MarkdownViewer markdownText={fetchedArticle} />
+        <MarkdownViewer markdownText={fetchedArticleText} />
         <div className={buttonContainerStyle}>
           <Button
             className={buttonStyle}
@@ -66,28 +66,31 @@ const ArticleDisplay = (props) => {
 
 // Prop Validations
 ArticleDisplay.propTypes = {
-  articleSavedAt: PropTypes.number,
+  articleSavedTime: PropTypes.number,
   currentArticle: PropTypes.string.isRequired,
-  fetchedArticle: PropTypes.string.isRequired,
+  fetchedArticleText: PropTypes.string.isRequired,
+  isFetchingArticleText: PropTypes.bool.isRequired,
   onFetchArticle: PropTypes.func.isRequired,
   onOpenArticleEditor: PropTypes.func.isRequired,
 };
 
 ArticleDisplay.defaultProps = {
-  articleSavedAt: 0,
+  articleSavedTime: 0,
 };
 
 const mapStateToProps = (state) => {
   const {
-    fetchedArticle,
-    savedArticle,
+    articleSavedTime,
+    fetchedArticleText,
+    isFetching: isFetchingArticleText,
   } = state.Article.ArticleDisplay;
   const { currentArticle } = state.UI.Sidebar;
 
   return {
+    articleSavedTime,
     currentArticle,
-    fetchedArticle,
-    savedArticle,
+    fetchedArticleText,
+    isFetchingArticleText,
   };
 };
 
