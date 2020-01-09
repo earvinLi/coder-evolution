@@ -8,7 +8,7 @@ As coders, we probably have to read official documentations, from [Stack Overflo
 
 ## Technology Specifics
 
-1. [Marked.js](https://marked.js.org) provides the functionality that parses strings with Markdown syntaxes. This builds the core displaying, editing and previewing articles functionalities of Coder Evolution. Not like [Github Wiki](https://help.github.com/en/github/building-a-strong-community/documenting-your-project-with-wikis), Coder Evolution allows you to edit and immediately preview your article on the same page, no need to switch between editing and previewing. A even richer and react-friendly text editor is planned to be implemented with the help of [Draft.js](https://draftjs.org/). Adding a new article is the next first priority.
+1. [Marked.js](https://marked.js.org) provides the functionality that parses strings with Markdown syntaxes. This builds the core displaying, editing and previewing articles functionalities of Coder Evolution. Not like [Github Wiki](https://help.github.com/en/github/building-a-strong-community/documenting-your-project-with-wikis), Coder Evolution allows you to edit and immediately preview your article on the same page, no need to switch between editing and previewing. A even richer and react-friendly text editor is planned to be implemented with the help of [Draft.js](https://draftjs.org/).
 
 2. A group of strings with Markdown syntaxes forms an article. For now, articles are saved on [DynamoDB](https://aws.amazon.com/dynamodb/) of [AWS](https://aws.amazon.com). The current data structure is very simple that is planned to be optimized under certain *NoSQL* principles or best practices, e.g. [Structure Your Database](https://firebase.google.com/docs/database/ios/structure-data) from [Firebase](https://firebase.google.com), especially considering the user authentication and management will be added and the scope of Coder Evolution is becoming bigger and bigger.
 ![image](https://user-images.githubusercontent.com/23125256/71946087-bd461980-3203-11ea-90e8-b1326b6b8ff9.png)
@@ -22,6 +22,14 @@ As coders, we probably have to read official documentations, from [Stack Overflo
 6. A lot of thanks to [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [Material-UI](https://material-ui.com/) for a good looking UI and the user-frindliness of Coder Evolution.
 
 7. Besides the article section, a code section will be constructed with the help of [CodeMirror](https://codemirror.net/), which tries to help coders play with and share their proud code works.
+
+## Todo Priorities (Issues)
+
+1. Optimize markdown text display especially how code is highlighted.
+2. Add adding an article, adding an article list and putting an article into a list functionalities with related database designs and changes.
+3. Implement user authentication and management with Cognito to give users needed privileges. This also requires medium to big data structure changes.
+4. Add Jest tests for the frontend.
+5. Implement local development capabilities using Docker Compose for easier development and testing.
 
 ---
 
