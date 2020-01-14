@@ -5,9 +5,13 @@ export const fetchRequest = async (url, options = {}) => {
   // optionsToUse.headers.authorization = `Bearer ${token || ''}`;
   optionsToUse.headers['Content-Type'] = 'application/json';
 
-  const fetchedJSON = await fetch(url, optionsToUse);
-  const fetched = await fetchedJSON.json();
-  return fetched;
+  try {
+    const fetchedJSON = await fetch(url, optionsToUse);
+    const fetched = await fetchedJSON.json();
+    return fetched;
+  } catch (error) {
+    throw new Error(`Fail to fetch. ${error}`);
+  }
 };
 
 // Action Helper
