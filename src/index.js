@@ -19,10 +19,14 @@ import {
 import './index.css';
 import App from './App/App';
 import AppReducer from './App/AppReducer';
+import apiCallingMiddleware from './App/Middlewares';
 
 // Redux Configuration
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const appStore = createStore(AppReducer, composeEnhancers(applyMiddleware(ReduxThunk)));
+const appStore = createStore(AppReducer, composeEnhancers(applyMiddleware(
+  apiCallingMiddleware,
+  ReduxThunk,
+)));
 
 // Material-UI theme Configuration
 const theme = createMuiTheme({
