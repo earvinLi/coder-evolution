@@ -1,18 +1,12 @@
 // Internal Dependencies
 import { fetchRequest } from '../../App/RootUtilities';
 import {
-  FETCH_ARTICLE_TEXT_FAIL,
-  FETCH_ARTICLE_TEXT_REQUEST,
-  FETCH_ARTICLE_TEXT_SUCCEED,
+  getAPICallingActionTypes,
   OPEN_ARTICLE_EDITOR,
 } from '../../App/ActionTypes';
 
 export const fetchArticle = () => ({
-  types: [
-    FETCH_ARTICLE_TEXT_FAIL,
-    FETCH_ARTICLE_TEXT_REQUEST,
-    FETCH_ARTICLE_TEXT_SUCCEED,
-  ],
+  types: getAPICallingActionTypes('FETCH', 'ARTICLE_TEXT'),
   apiCallingFunction: (state) => {
     const { currentArticle } = state.UI.Sidebar;
     return fetchRequest(`https://ibr6yzhzy4.execute-api.ap-northeast-1.amazonaws.com/prod/articles/${currentArticle}`);

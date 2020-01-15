@@ -1,8 +1,5 @@
 // Artical Display Action Types
 export const CLOSE_ARTICLE_EDITOR = 'CLOSE_ARTICLE_EDITOR';
-export const FETCH_ARTICLE_TEXT_FAIL = 'FETCH_ARTICLE_TEXT_FAIL';
-export const FETCH_ARTICLE_TEXT_REQUEST = 'FETCH_ARTICLE_TEXT_REQUEST';
-export const FETCH_ARTICLE_TEXT_SUCCEED = 'FETCH_ARTICLE_TEXT_SUCCEED';
 export const OPEN_ARTICLE_EDITOR = 'OPEN_ARTICLE_EDITOR';
 export const SAVE_ARTICLE_TEXT = 'SAVE_ARTICLE_TEXT';
 export const UPDATE_ARTICLE_TEXT = 'UPDATE_ARTICLE_TEXT';
@@ -10,3 +7,10 @@ export const UPDATE_ARTICLE_TEXT = 'UPDATE_ARTICLE_TEXT';
 // Sidebar Action Types
 export const OPEN_ARTICLE_DISPLAY = 'OPEN_ARTICLE_DISPLAY';
 export const TOGGLE_WEEK_ITEM_LIST = 'TOGGLE_WEEK_ITEM_LIST';
+
+// Fetch Action Types Helper
+export const getAPICallingActionTypes = (actionToDo, itemToFetch) => [
+  `${actionToDo}_${itemToFetch}_FAIL`,
+  `${actionToDo}_${itemToFetch}_REQUEST`,
+  `${actionToDo}_${itemToFetch}_SUCCEED`,
+];

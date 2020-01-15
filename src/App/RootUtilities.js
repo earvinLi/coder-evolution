@@ -29,3 +29,11 @@ export const createReducer = (initialState, handlers) => (state = initialState, 
   if (hasActionType) return handlers[action.type](state, action);
   return state;
 };
+
+export const getAPICallingReducerHandlers = (types, reducers) => {
+  const apiCallingReducerHandlers = {};
+  types.forEach((type, index) => {
+    apiCallingReducerHandlers[type] = reducers[index];
+  });
+  return apiCallingReducerHandlers;
+};
