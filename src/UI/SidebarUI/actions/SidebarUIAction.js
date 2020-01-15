@@ -1,9 +1,21 @@
 // Internal Dependencies
-import { createActionCreator } from '../../../App/RootUtilities';
 import {
+  createActionCreator,
+  fetchRequest,
+} from '../../../App/RootUtilities';
+import {
+  getAPICallingActionTypes,
   OPEN_ARTICLE_DISPLAY,
   TOGGLE_WEEK_ITEM_LIST,
 } from '../../../App/ActionTypes';
+
+export const fetchArticleLists = () => ({
+  types: getAPICallingActionTypes('FETCH', 'ARTICLE_LISTS'),
+  apiCallingFunction: (state) => {
+    const user = state.Account.userEmail;
+    return fetchRequest(`http://localhost:3001/article-lists/${user}`);
+  },
+});
 
 export const openArticleDisplay = createActionCreator(OPEN_ARTICLE_DISPLAY, 'articleName');
 

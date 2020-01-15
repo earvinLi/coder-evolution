@@ -26,7 +26,7 @@ const apiCallingMiddleware = ({ dispatch, getState }) => (next) => async (action
 
   try {
     const response = await apiCallingFunction(getState());
-    return dispatch({ type: succeedType, ...response });
+    return dispatch({ type: succeedType, response });
   } catch (error) {
     // TODO: Enable the reducers to handle failure cases
     return dispatch({ type: failType, error });
