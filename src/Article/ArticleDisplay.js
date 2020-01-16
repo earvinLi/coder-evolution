@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
     fetchedArticleText,
     isFetching: isFetchingArticleText,
   } = state.Article.ArticleDisplay;
-  const { currentArticle } = state.UI.Sidebar;
+  const { currentArticle } = state.UI.Sidebar.Articles;
 
   return {
     articleSavedTime,

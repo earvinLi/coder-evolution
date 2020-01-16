@@ -17,7 +17,7 @@ const INITIAL_STATE = {
 
 const fetchArticleTextFail = (state, action) => ({ ...state, fetchError: action.error });
 const fetchArticleTextRequest = (state) => ({ ...state, isFetching: true });
-const fetchArticleTextSuccess = (state, action) => ({
+const fetchArticleTextSucceed = (state, action) => ({
   ...state,
   fetchedArticleText: action.response.articleText,
   isFetching: false,
@@ -32,7 +32,7 @@ export default createReducer(INITIAL_STATE, {
   ...getAPICallingReducerHandlers(getAPICallingActionTypes('FETCH', 'ARTICLE_TEXT'), [
     fetchArticleTextFail,
     fetchArticleTextRequest,
-    fetchArticleTextSuccess,
+    fetchArticleTextSucceed,
   ]),
   [SAVE_ARTICLE_TEXT]: saveArticleText,
 });

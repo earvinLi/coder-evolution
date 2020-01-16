@@ -7,19 +7,19 @@ import { connect } from 'react-redux';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
-import WeekOneItemList from './WeekOneItemList';
+import ArticleList from './ArticleList';
 import getSidebarStyles from './styles/SidebarStyle';
 import {
   fetchArticleLists,
-  toggleWeekItemList,
-} from '../UI/SidebarUI/actions/SidebarUIAction';
+  toggleArticleList,
+} from '../UI/SidebarUI/actions/ArticleListsAction';
+import { fetchArticles } from '../UI/SidebarUI/actions/ArticlesAction';
 
 // Component Definition
 const Sidebar = (props) => {
@@ -31,8 +31,9 @@ const Sidebar = (props) => {
   const {
     fetchedArticleLists,
     onFetchArticleLists,
-    // onToggleWeekItemList,
-    // weekItemListIsOpen,
+    onFetchArticles,
+    onToggleArticleList,
+    openedArticleLists,
   } = props;
 
   useEffect(() => {
@@ -40,26 +41,29 @@ const Sidebar = (props) => {
   }, [onFetchArticleLists]);
 
   const ListItems = fetchedArticleLists.map((articleList) => {
-    // const sublistIsOpen = weekItemListIsOpen.includes(title);
-    // const onWeekListClick = () => onToggleWeekItemList(title);
+    const articleListIsOpen = openedArticleLists.includes(articleList);
+    const onArticleListClick = async () => {
+      await onFetchArticles(articleList);
+      onToggleArticleList(articleList);
+    };
 
     return (
       <div key={articleList}>
         <ListItem
           button
-          // onClick={onWeekListClick}
+          onClick={onArticleListClick}
         >
           <ListItemText primary={articleList} />
-          {/* sublistIsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon /> */}
+          {articleListIsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon /> }
         </ListItem>
-        {/* <Collapse
+        <Collapse
           className={collapseStyle}
-          in={sublistIsOpen}
+          in={articleListIsOpen}
           timeout="auto"
           unmountOnExit
         >
-          {itemList}
-        </Collapse> */}
+          <ArticleList articleList={articleList} />
+        </Collapse>
       </div>
     );
   });
@@ -74,23 +78,25 @@ const Sidebar = (props) => {
 Sidebar.propTypes = {
   fetchedArticleLists: PropTypes.arrayOf(PropTypes.string).isRequired,
   onFetchArticleLists: PropTypes.func.isRequired,
-  onToggleWeekItemList: PropTypes.func.isRequired,
-  weekItemListIsOpen: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onFetchArticles: PropTypes.func.isRequired,
+  onToggleArticleList: PropTypes.func.isRequired,
+  openedArticleLists: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state) => {
   const {
     fetchedArticleLists,
-    weekItemListIsOpen,
-  } = state.UI.Sidebar;
+    openedArticleLists,
+  } = state.UI.Sidebar.ArticleLists;
 
   return {
     fetchedArticleLists,
-    weekItemListIsOpen,
+    openedArticleLists,
   };
 };
 
 export default connect(mapStateToProps, {
   onFetchArticleLists: fetchArticleLists,
-  onToggleWeekItemList: toggleWeekItemList,
+  onFetchArticles: fetchArticles,
+  onToggleArticleList: toggleArticleList,
 })(Sidebar);

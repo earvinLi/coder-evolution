@@ -12,7 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import getweekOneItemListStyles from './styles/WeekOneItemListStyle';
-import { openArticleDisplay } from '../UI/SidebarUI/actions/SidebarUIAction';
+import { fetchArticles } from '../UI/SidebarUI/actions/ArticlesAction';
+import { openArticleDisplay } from '../UI/SidebarUI/actions/ArticleListsAction';
 
 // Component Definition
 const WeekOneItemList = (props) => {
@@ -21,29 +22,23 @@ const WeekOneItemList = (props) => {
   } = makeStyles((theme) => getweekOneItemListStyles(theme))();
 
   const {
+    articleList,
     currentArticle,
+    fetchedArticles,
     onOpenArticleDisplay,
   } = props;
 
-  const ListItems = [
-    { articleName: 'javascript-foundations', title: 'JavaScript Foundations' },
-    { articleName: 'es6-features', title: 'ES6 Features' },
-  ].map((listItem) => {
-    const {
-      articleName,
-      title,
-    } = listItem;
-
-    const onSubitemClick = () => onOpenArticleDisplay(articleName);
+  const ListItems = fetchedArticles[articleList].map((article) => {
+    const onSubitemClick = () => onOpenArticleDisplay(article);
 
     return (
       <ListItem
         button
-        className={clsx(articleName === currentArticle && subitemSelectedStyle)}
-        key={articleName}
+        className={clsx(article === currentArticle && subitemSelectedStyle)}
+        key={article}
         onClick={onSubitemClick}
       >
-        <ListItemText primary={title} />
+        <ListItemText primary={article} />
       </ListItem>
     );
   });
@@ -57,16 +52,25 @@ const WeekOneItemList = (props) => {
 
 // Prop Validations
 WeekOneItemList.propTypes = {
+  articleList: PropTypes.string.isRequired,
   currentArticle: PropTypes.string.isRequired,
+  fetchedArticles: PropTypes.shape({}).isRequired,
   onOpenArticleDisplay: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { currentArticle } = state.UI.Sidebar;
+  const {
+    currentArticle,
+    fetchedArticles,
+  } = state.UI.Sidebar.Articles;
 
-  return { currentArticle };
+  return {
+    currentArticle,
+    fetchedArticles,
+  };
 };
 
 export default connect(mapStateToProps, {
+  onFetchArticles: fetchArticles,
   onOpenArticleDisplay: openArticleDisplay,
 })(WeekOneItemList);

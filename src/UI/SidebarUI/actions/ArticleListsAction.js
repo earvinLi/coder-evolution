@@ -20,19 +20,19 @@ export const fetchArticleLists = () => ({
 export const openArticleDisplay = createActionCreator(OPEN_ARTICLE_DISPLAY, 'articleName');
 
 // eslint-disable-next-line import/prefer-default-export
-export const toggleWeekItemList = (week) => (dispatch, getState) => {
-  const { weekItemListIsOpen } = getState().UI.Sidebar;
-  const weekItemListIsOpenToUpdate = [...weekItemListIsOpen];
-  const weekIndex = weekItemListIsOpenToUpdate.indexOf(week);
+export const toggleArticleList = (articleList) => (dispatch, getState) => {
+  const { openedArticleLists } = getState().UI.Sidebar.ArticleLists;
+  const openedArticleListsToUpdate = [...openedArticleLists];
+  const articleListIndex = openedArticleListsToUpdate.indexOf(articleList);
 
-  if (weekIndex > -1) {
-    weekItemListIsOpenToUpdate.splice(weekIndex, 1);
+  if (articleListIndex > -1) {
+    openedArticleListsToUpdate.splice(articleListIndex, 1);
   } else {
-    weekItemListIsOpenToUpdate.push(week);
+    openedArticleListsToUpdate.push(articleList);
   }
 
   dispatch({
     type: TOGGLE_WEEK_ITEM_LIST,
-    weekItemListIsOpen: weekItemListIsOpenToUpdate,
+    openedArticleLists: openedArticleListsToUpdate,
   });
 };
