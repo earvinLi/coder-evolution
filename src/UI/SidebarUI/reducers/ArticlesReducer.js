@@ -5,12 +5,12 @@ import {
 } from '../../../App/RootUtilities';
 import {
   getAPICallingActionTypes,
-  OPEN_ARTICLE_DISPLAY,
+  OPEN_ARTICLE,
 } from '../../../App/ActionTypes';
 
 const INITIAL_STATE = {
   articleListUnderFetching: '',
-  currentArticle: 'javascript-foundations',
+  currentArticle: 'JavaScript Foundations',
   fetchError: '',
   fetchedArticles: {},
 };
@@ -31,7 +31,7 @@ const fetchArticlesSucceed = (state, action) => {
   };
 };
 
-const openArticleDisplay = (state, action) => ({
+const openArticle = (state, action) => ({
   ...state,
   currentArticle: action.articleName,
 });
@@ -42,5 +42,5 @@ export default createReducer(INITIAL_STATE, {
     fetchArticlesRequest,
     fetchArticlesSucceed,
   ]),
-  [OPEN_ARTICLE_DISPLAY]: openArticleDisplay,
+  [OPEN_ARTICLE]: openArticle,
 });

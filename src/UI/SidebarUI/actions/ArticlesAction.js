@@ -5,7 +5,7 @@ import {
 } from '../../../App/RootUtilities';
 import {
   getAPICallingActionTypes,
-  OPEN_ARTICLE_DISPLAY,
+  OPEN_ARTICLE,
 } from '../../../App/ActionTypes';
 
 export const fetchArticles = (articleList) => ({
@@ -21,4 +21,4 @@ export const fetchArticles = (articleList) => ({
   ),
 });
 
-export const openArticleDisplay = createActionCreator(OPEN_ARTICLE_DISPLAY, 'articleName');
+export const openArticle = createActionCreator(OPEN_ARTICLE, 'articleName');

@@ -1,11 +1,7 @@
 // Internal Dependencies
-import {
-  createActionCreator,
-  fetchRequest,
-} from '../../../App/RootUtilities';
+import { fetchRequest } from '../../../App/RootUtilities';
 import {
   getAPICallingActionTypes,
-  OPEN_ARTICLE_DISPLAY,
   TOGGLE_WEEK_ITEM_LIST,
 } from '../../../App/ActionTypes';
 
@@ -16,8 +12,6 @@ export const fetchArticleLists = () => ({
     return fetchRequest(`http://localhost:3001/article-lists/${user}`);
   },
 });
-
-export const openArticleDisplay = createActionCreator(OPEN_ARTICLE_DISPLAY, 'articleName');
 
 // eslint-disable-next-line import/prefer-default-export
 export const toggleArticleList = (articleList) => (dispatch, getState) => {

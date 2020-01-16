@@ -5,7 +5,7 @@ export const SAVE_ARTICLE_TEXT = 'SAVE_ARTICLE_TEXT';
 export const UPDATE_ARTICLE_TEXT = 'UPDATE_ARTICLE_TEXT';
 
 // Sidebar Action Types
-export const OPEN_ARTICLE_DISPLAY = 'OPEN_ARTICLE_DISPLAY';
+export const OPEN_ARTICLE = 'OPEN_ARTICLE';
 export const TOGGLE_WEEK_ITEM_LIST = 'TOGGLE_WEEK_ITEM_LIST';
 
 // Fetch Action Types Helper

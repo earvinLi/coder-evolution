@@ -11,15 +11,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
-import getweekOneItemListStyles from './styles/WeekOneItemListStyle';
-import { fetchArticles } from '../UI/SidebarUI/actions/ArticlesAction';
-import { openArticleDisplay } from '../UI/SidebarUI/actions/ArticleListsAction';
+import getArticleListStyles from './styles/ArticleListStyle';
+import {
+  fetchArticles,
+  openArticle,
+} from '../UI/SidebarUI/actions/ArticlesAction';
 
 // Component Definition
 const WeekOneItemList = (props) => {
   const {
-    subitemSelectedStyle,
-  } = makeStyles((theme) => getweekOneItemListStyles(theme))();
+    articleSelectedStyle,
+  } = makeStyles((theme) => getArticleListStyles(theme))();
 
   const {
     articleList,
@@ -29,14 +31,14 @@ const WeekOneItemList = (props) => {
   } = props;
 
   const ListItems = fetchedArticles[articleList].map((article) => {
-    const onSubitemClick = () => onOpenArticleDisplay(article);
+    const onArticleClick = () => onOpenArticleDisplay(article);
 
     return (
       <ListItem
         button
-        className={clsx(article === currentArticle && subitemSelectedStyle)}
+        className={clsx(article === currentArticle && articleSelectedStyle)}
         key={article}
-        onClick={onSubitemClick}
+        onClick={onArticleClick}
       >
         <ListItemText primary={article} />
       </ListItem>
@@ -72,5 +74,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   onFetchArticles: fetchArticles,
-  onOpenArticleDisplay: openArticleDisplay,
+  onOpenArticleDisplay: openArticle,
 })(WeekOneItemList);

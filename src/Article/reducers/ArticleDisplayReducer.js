@@ -3,10 +3,7 @@ import {
   createReducer,
   getAPICallingReducerHandlers,
 } from '../../App/RootUtilities';
-import {
-  getAPICallingActionTypes,
-  SAVE_ARTICLE_TEXT,
-} from '../../App/ActionTypes';
+import { getAPICallingActionTypes } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   articleSavedTime: 0,
@@ -19,13 +16,8 @@ const fetchArticleTextFail = (state, action) => ({ ...state, fetchError: action.
 const fetchArticleTextRequest = (state) => ({ ...state, isFetching: true });
 const fetchArticleTextSucceed = (state, action) => ({
   ...state,
-  fetchedArticleText: action.response.articleText,
+  fetchedArticleText: action.response.ArticleText,
   isFetching: false,
-});
-
-const saveArticleText = (state, action) => ({
-  ...state,
-  articleSavedTime: action.articleSavedTime,
 });
 
 export default createReducer(INITIAL_STATE, {
@@ -34,5 +26,4 @@ export default createReducer(INITIAL_STATE, {
     fetchArticleTextRequest,
     fetchArticleTextSucceed,
   ]),
-  [SAVE_ARTICLE_TEXT]: saveArticleText,
 });

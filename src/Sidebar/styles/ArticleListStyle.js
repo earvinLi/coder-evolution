@@ -1,5 +1,5 @@
 export default ((theme) => ({
-  subitemSelectedStyle: {
+  articleSelectedStyle: {
     color: theme.palette.primary.main,
   },
 }));

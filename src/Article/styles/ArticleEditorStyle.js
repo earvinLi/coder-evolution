@@ -7,6 +7,15 @@ export default ((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  dotsLoaderDotStyle: {
+    backgroundColor: theme.palette.primary.main,
+    height: theme.spacing(1),
+    width: theme.spacing(1),
+  },
+  dotsLoaderWaveStyle: {
+    marginBottom: theme.spacing(1),
+    marginRight: theme.spacing(4),
+  },
   editorContainerStyle: {
     display: 'flex',
     flexGrow: 1,

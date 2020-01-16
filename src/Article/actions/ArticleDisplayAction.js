@@ -8,8 +8,9 @@ import {
 export const fetchArticle = () => ({
   types: getAPICallingActionTypes('FETCH', 'ARTICLE_TEXT'),
   apiCallingFunction: (state) => {
+    const user = state.Account.userEmail;
     const { currentArticle } = state.UI.Sidebar.Articles;
-    return fetchRequest(`https://ibr6yzhzy4.execute-api.ap-northeast-1.amazonaws.com/prod/articles/${currentArticle}`);
+    return fetchRequest(`http://localhost:3001/article/${user}/${currentArticle}`);
   },
 });
 

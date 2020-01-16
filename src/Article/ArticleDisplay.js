@@ -80,10 +80,10 @@ ArticleDisplay.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
-    articleSavedTime,
     fetchedArticleText,
     isFetching: isFetchingArticleText,
   } = state.Article.ArticleDisplay;
+  const { articleSavedTime } = state.Article.ArticleEditor;
   const { currentArticle } = state.UI.Sidebar.Articles;
 
   return {

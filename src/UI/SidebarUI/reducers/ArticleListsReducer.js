@@ -5,7 +5,6 @@ import {
 } from '../../../App/RootUtilities';
 import {
   getAPICallingActionTypes,
-  OPEN_ARTICLE_DISPLAY,
   TOGGLE_WEEK_ITEM_LIST,
 } from '../../../App/ActionTypes';
 
@@ -25,11 +24,6 @@ const fetchArticleListsSucceed = (state, action) => ({
   isFetching: false,
 });
 
-const openArticleDisplay = (state, action) => ({
-  ...state,
-  currentArticle: action.articleName,
-});
-
 const toggleWeekItemList = (state, action) => ({
   ...state,
   openedArticleLists: action.openedArticleLists,
@@ -41,6 +35,5 @@ export default createReducer(INITIAL_STATE, {
     fetchArticleListsRequest,
     fetchArticleListsSucceed,
   ]),
-  [OPEN_ARTICLE_DISPLAY]: openArticleDisplay,
   [TOGGLE_WEEK_ITEM_LIST]: toggleWeekItemList,
 });

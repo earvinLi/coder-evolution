@@ -10,6 +10,7 @@ import SaveOutlinedIcon from '@material-ui/icons/SaveOutlined';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
+import DotsLoader from '../SharedUnits/DotsLoader';
 import getArticleEditorStyles from './styles/ArticleEditorStyle';
 import MarkdownViewer from '../SharedUnits/MarkdownViewer';
 import {
@@ -23,6 +24,8 @@ const ArticleEditor = (props) => {
   const {
     buttonStyle,
     buttonContainerStyle,
+    dotsLoaderDotStyle,
+    dotsLoaderWaveStyle,
     editorContainerStyle,
     editorInputStyle,
     markdownViewerStyle,
@@ -31,17 +34,13 @@ const ArticleEditor = (props) => {
 
   const {
     articleText,
-    onCloseArticleEditor,
+    isSavingArticleText,
     onSaveArticleText,
     onUpdateArticleText,
   } = props;
 
   const onArticleTextInput = (event) => onUpdateArticleText(event.target.value);
-
-  const onSaveButtonClick = () => {
-    onSaveArticleText(articleText);
-    onCloseArticleEditor();
-  };
+  const onSaveButtonClick = () => onSaveArticleText(articleText);
 
   return (
     <Paper className={paperStyle}>
@@ -57,15 +56,24 @@ const ArticleEditor = (props) => {
         />
       </div>
       <div className={buttonContainerStyle}>
-        <Button
-          className={buttonStyle}
-          color="primary"
-          onClick={onSaveButtonClick}
-          size="large"
-          startIcon={<SaveOutlinedIcon />}
-        >
-          Save
-        </Button>
+        {isSavingArticleText
+          ? (
+            <DotsLoader
+              variantDotStyle={dotsLoaderDotStyle}
+              variantWaveStyle={dotsLoaderWaveStyle}
+            />
+          )
+          : (
+            <Button
+              className={buttonStyle}
+              color="primary"
+              onClick={onSaveButtonClick}
+              size="large"
+              startIcon={<SaveOutlinedIcon />}
+            >
+              Save
+            </Button>
+          )}
       </div>
     </Paper>
   );
@@ -73,15 +81,21 @@ const ArticleEditor = (props) => {
 
 ArticleEditor.propTypes = {
   articleText: PropTypes.string.isRequired,
-  onCloseArticleEditor: PropTypes.func.isRequired,
+  isSavingArticleText: PropTypes.bool.isRequired,
   onSaveArticleText: PropTypes.func.isRequired,
   onUpdateArticleText: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const { articleText } = state.Article.ArticleEditor;
+  const {
+    articleText,
+    isSaving: isSavingArticleText,
+  } = state.Article.ArticleEditor;
 
-  return { articleText };
+  return {
+    articleText,
+    isSavingArticleText,
+  };
 };
 
 export default connect(mapStateToProps, {
