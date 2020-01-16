@@ -9,22 +9,25 @@ import {
 } from '../../../App/ActionTypes';
 
 const INITIAL_STATE = {
+  articleListUnderFetching: '',
   currentArticle: 'javascript-foundations',
   fetchError: '',
-  isFetching: false,
   fetchedArticles: {},
 };
 
 const fetchArticlesFail = (state, action) => ({ ...state, fetchError: action.error });
-const fetchArticlesRequest = (state) => ({ ...state, isFetching: true });
+const fetchArticlesRequest = (state, action) => ({
+  ...state,
+  articleListUnderFetching: action.articleList,
+});
 const fetchArticlesSucceed = (state, action) => {
   const fetchedArticlesToUpdate = { ...state.fetchedArticles };
   fetchedArticlesToUpdate[action.articleList] = action.response;
 
   return {
     ...state,
+    articleListUnderFetching: '',
     fetchedArticles: fetchedArticlesToUpdate,
-    isFetching: false,
   };
 };
 

@@ -22,7 +22,7 @@ const apiCallingMiddleware = ({ dispatch, getState }) => (next) => async (action
     succeedType,
   ] = types;
 
-  dispatch({ type: requestType });
+  dispatch({ type: requestType, ...payload });
 
   try {
     const response = await apiCallingFunction(getState());

@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import ArticleList from './ArticleList';
+import DotsLoader from '../SharedUnits/DotsLoader';
 import getSidebarStyles from './styles/SidebarStyle';
 import {
   fetchArticleLists,
@@ -29,6 +30,7 @@ const Sidebar = (props) => {
   } = makeStyles((theme) => getSidebarStyles(theme))();
 
   const {
+    articleListUnderFetching,
     fetchedArticleLists,
     onFetchArticleLists,
     onFetchArticles,
@@ -42,7 +44,9 @@ const Sidebar = (props) => {
 
   const ListItems = fetchedArticleLists.map((articleList) => {
     const articleListIsOpen = openedArticleLists.includes(articleList);
+    const articleListExpandIcon = articleListIsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />;
     const onArticleListClick = async () => {
+      if (articleListUnderFetching) return;
       await onFetchArticles(articleList);
       onToggleArticleList(articleList);
     };
@@ -54,7 +58,7 @@ const Sidebar = (props) => {
           onClick={onArticleListClick}
         >
           <ListItemText primary={articleList} />
-          {articleListIsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon /> }
+          {(articleListUnderFetching === articleList) ? <DotsLoader /> : articleListExpandIcon}
         </ListItem>
         <Collapse
           className={collapseStyle}
@@ -62,7 +66,10 @@ const Sidebar = (props) => {
           timeout="auto"
           unmountOnExit
         >
-          <ArticleList articleList={articleList} />
+          <ArticleList
+            articleList={articleList}
+            listActionDisabled={Boolean(articleListUnderFetching)}
+          />
         </Collapse>
       </div>
     );
@@ -75,7 +82,9 @@ const Sidebar = (props) => {
   );
 };
 
+// Prop Validations
 Sidebar.propTypes = {
+  articleListUnderFetching: PropTypes.string,
   fetchedArticleLists: PropTypes.arrayOf(PropTypes.string).isRequired,
   onFetchArticleLists: PropTypes.func.isRequired,
   onFetchArticles: PropTypes.func.isRequired,
@@ -83,13 +92,19 @@ Sidebar.propTypes = {
   openedArticleLists: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
+Sidebar.defaultProps = {
+  articleListUnderFetching: '',
+};
+
 const mapStateToProps = (state) => {
   const {
     fetchedArticleLists,
     openedArticleLists,
   } = state.UI.Sidebar.ArticleLists;
+  const { articleListUnderFetching } = state.UI.Sidebar.Articles;
 
   return {
+    articleListUnderFetching,
     fetchedArticleLists,
     openedArticleLists,
   };
