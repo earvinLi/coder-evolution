@@ -7,11 +7,13 @@ import {
   getAPICallingActionTypes,
   CLOSE_ARTICLE_ADD_DIALOG,
   OPEN_ARTICLE_ADD_DIALOG,
+  TOGGLE_ARTICLE_LIST_ACTION_MODE,
   UPDATE_ARTICLE_ADD_INFO,
 } from '../../App/ActionTypes';
 
 export const closeArticleAddDialog = createActionCreator(CLOSE_ARTICLE_ADD_DIALOG);
 export const openArticleAddDialog = createActionCreator(OPEN_ARTICLE_ADD_DIALOG);
+export const toggleArticleListActionMode = createActionCreator(TOGGLE_ARTICLE_LIST_ACTION_MODE);
 
 export const addArticle = () => ({
   types: getAPICallingActionTypes('addArticle'),
@@ -33,4 +35,4 @@ export const addArticle = () => ({
   payload: { articleAddedTime: Date.now() },
 });
 
-export const updateArticleText = createActionCreator(UPDATE_ARTICLE_ADD_INFO, 'articleName', 'articleList');
+export const updateArticleAddInfo = createActionCreator(UPDATE_ARTICLE_ADD_INFO, 'prop', 'value');

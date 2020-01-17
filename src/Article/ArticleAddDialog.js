@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -20,7 +21,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import getArticleAddDialogStyles from './styles/ArticleAddDialogStyle';
 import TextButton from '../SharedUnits/TextButton';
 import {
+  addArticle,
   closeArticleAddDialog,
+  toggleArticleListActionMode,
+  updateArticleAddInfo,
 } from './actions/ArticleAddDialogAction';
 
 // Component Definition
@@ -31,12 +35,56 @@ const ArticleAddDialog = (props) => {
 
   const {
     articleAddDialogIsOpen,
+    articleList,
+    articleName,
+    fetchedArticleLists,
+    onAddArticle,
     onCloseArticleAddDialog,
+    onToggleArticleListActionMode,
+    onUpdateArticleAddInfo,
+    toSelectArticleList,
   } = props;
 
-  const onAddButtonClick = () => {};
-  const onArticleListSelectChange = () => {};
-  const onSwitchButtonClick = () => {};
+  const onArticleNameInputChange = (e) => onUpdateArticleAddInfo('articleName', e.target.value);
+  const onArticleListInputChange = (e) => onUpdateArticleAddInfo('articleList', e.target.value);
+
+  const articleListItems = fetchedArticleLists.map((articleListItem) => (
+    <MenuItem
+      key={articleListItem}
+      value={articleListItem}
+    >
+      {articleListItem}
+    </MenuItem>
+  ));
+
+  const articleListSection = toSelectArticleList
+    ? (
+      <FormControl
+        className={articleSelectContainerStyle}
+        fullWidth
+      >
+        <InputLabel id="article-list-select">
+          Article List
+        </InputLabel>
+        <Select
+          labelId="article-list-select"
+          onChange={onArticleListInputChange}
+          value={articleList}
+        >
+          {articleListItems}
+        </Select>
+      </FormControl>
+    )
+    : (
+      <TextField
+        className={articleSelectContainerStyle}
+        fullWidth
+        label="Article List"
+        onChange={onArticleListInputChange}
+        type="text"
+        value={articleList}
+      />
+    );
 
   return (
     <Dialog
@@ -52,22 +100,15 @@ const ArticleAddDialog = (props) => {
         <TextField
           fullWidth
           label="Article Name"
+          onChange={onArticleNameInputChange}
           type="text"
+          value={articleName}
         />
-        <div className={articleSelectContainerStyle}>
-          <InputLabel id="article-list-select">
-            Article List
-          </InputLabel>
-          <Select
-            fullWidth
-            labelId="article-list-select"
-            onChange={onArticleListSelectChange}
-          >
-            <MenuItem>Core Skills</MenuItem>
-          </Select>
-        </div>
-        <TextButton onClick={onSwitchButtonClick}>
-          Or you want to create a new list?
+        {articleListSection}
+        <TextButton onClick={onToggleArticleListActionMode}>
+          {toSelectArticleList
+            ? 'Or you want to create a new list?'
+            : 'You can select from an existing list.'}
         </TextButton>
       </DialogContent>
       <DialogActions>
@@ -79,7 +120,7 @@ const ArticleAddDialog = (props) => {
         </Button>
         <Button
           color="primary"
-          onClick={onAddButtonClick}
+          onClick={onAddArticle}
         >
           Add
         </Button>
@@ -91,19 +132,43 @@ const ArticleAddDialog = (props) => {
 // Prop Validations
 ArticleAddDialog.propTypes = {
   articleAddDialogIsOpen: PropTypes.bool.isRequired,
+  articleList: PropTypes.string,
+  articleName: PropTypes.string,
+  fetchedArticleLists: PropTypes.arrayOf(PropTypes.string),
+  onAddArticle: PropTypes.func.isRequired,
   onCloseArticleAddDialog: PropTypes.func.isRequired,
+  onToggleArticleListActionMode: PropTypes.func.isRequired,
+  onUpdateArticleAddInfo: PropTypes.func.isRequired,
+  toSelectArticleList: PropTypes.bool.isRequired,
+};
+
+ArticleAddDialog.defaultProps = {
+  articleList: '',
+  articleName: '',
+  fetchedArticleLists: [],
 };
 
 const mapStateToProps = (state) => {
   const {
+    articleList,
+    articleName,
     isOpen: articleAddDialogIsOpen,
+    toSelectArticleList,
   } = state.Article.ArticleAddDialog;
+  const { fetchedArticleLists } = state.UI.Sidebar.ArticleLists;
 
   return {
     articleAddDialogIsOpen,
+    articleList,
+    articleName,
+    fetchedArticleLists,
+    toSelectArticleList,
   };
 };
 
 export default connect(mapStateToProps, {
+  onAddArticle: addArticle,
   onCloseArticleAddDialog: closeArticleAddDialog,
+  onToggleArticleListActionMode: toggleArticleListActionMode,
+  onUpdateArticleAddInfo: updateArticleAddInfo,
 })(ArticleAddDialog);

@@ -7,6 +7,7 @@ import {
   getAPICallingActionTypes,
   CLOSE_ARTICLE_ADD_DIALOG,
   OPEN_ARTICLE_ADD_DIALOG,
+  TOGGLE_ARTICLE_LIST_ACTION_MODE,
   UPDATE_ARTICLE_ADD_INFO,
 } from '../../App/ActionTypes';
 
@@ -16,10 +17,8 @@ const INITIAL_STATE = {
   articleName: '',
   isAdding: false,
   isOpen: false,
+  toSelectArticleList: true,
 };
-
-const closeArticleAddDialog = () => INITIAL_STATE;
-const openArticleAddDialog = () => ({ isOpen: true });
 
 const addArticleFail = (state, action) => ({ ...state, addError: action.error });
 const addArticleRequest = (state) => ({ ...state, isAdding: true });
@@ -30,10 +29,16 @@ const addArticleSucceed = (state, action) => ({
   isAdding: false,
 });
 
+const closeArticleAddDialog = () => INITIAL_STATE;
+const openArticleAddDialog = (state) => ({ ...state, isOpen: true });
+const toggleArticleListActionMode = (state) => ({
+  ...state,
+  toSelectArticleList: !state.toSelectArticleList,
+});
+
 const updateArticleAddInfo = (state, action) => ({
   ...state,
-  articleList: action.articleList,
-  articleName: action.articleName,
+  [action.prop]: action.value,
 });
 
 export default createReducer(INITIAL_STATE, {
@@ -44,5 +49,6 @@ export default createReducer(INITIAL_STATE, {
   ]),
   [CLOSE_ARTICLE_ADD_DIALOG]: closeArticleAddDialog,
   [OPEN_ARTICLE_ADD_DIALOG]: openArticleAddDialog,
+  [TOGGLE_ARTICLE_LIST_ACTION_MODE]: toggleArticleListActionMode,
   [UPDATE_ARTICLE_ADD_INFO]: updateArticleAddInfo,
 });

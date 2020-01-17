@@ -4,9 +4,17 @@ import React from 'react';
 
 // Material-UI Dependencies
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+// Internal Dependencies
+import getTextButtonStyles from './styles/TextButtonStyle';
 
 // Component Definition
 const TextButton = (props) => {
+  const {
+    typographyStyle,
+  } = makeStyles((theme) => getTextButtonStyles(theme))();
+
   const {
     children,
     onClick,
@@ -14,6 +22,7 @@ const TextButton = (props) => {
 
   return (
     <Typography
+      className={typographyStyle}
       color="primary"
       onClick={onClick}
       variant="body2"
@@ -25,7 +34,7 @@ const TextButton = (props) => {
 
 // Prop Validations
 TextButton.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
