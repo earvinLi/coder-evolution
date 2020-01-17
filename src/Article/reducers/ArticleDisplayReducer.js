@@ -21,7 +21,7 @@ const fetchArticleTextSucceed = (state, action) => ({
 });
 
 export default createReducer(INITIAL_STATE, {
-  ...getAPICallingReducerHandlers(getAPICallingActionTypes('FETCH', 'ARTICLE_TEXT'), [
+  ...getAPICallingReducerHandlers(getAPICallingActionTypes('fetchArticle'), [
     fetchArticleTextFail,
     fetchArticleTextRequest,
     fetchArticleTextSucceed,

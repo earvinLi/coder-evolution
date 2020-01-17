@@ -37,7 +37,7 @@ const openArticle = (state, action) => ({
 });
 
 export default createReducer(INITIAL_STATE, {
-  ...getAPICallingReducerHandlers(getAPICallingActionTypes('FETCH', 'ARTICLES'), [
+  ...getAPICallingReducerHandlers(getAPICallingActionTypes('fetchArticles'), [
     fetchArticlesFail,
     fetchArticlesRequest,
     fetchArticlesSucceed,

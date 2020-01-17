@@ -12,7 +12,7 @@ import {
 export const closeArticleEditor = createActionCreator(CLOSE_ARTICLE_EDITOR);
 
 export const saveArticleText = (articleText) => ({
-  types: getAPICallingActionTypes('SAVE', 'ARTICLE_TEXT'),
+  types: getAPICallingActionTypes('saveArticle'),
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
     const { currentArticle } = state.UI.Sidebar.Articles;

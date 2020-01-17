@@ -30,7 +30,7 @@ const toggleWeekItemList = (state, action) => ({
 });
 
 export default createReducer(INITIAL_STATE, {
-  ...getAPICallingReducerHandlers(getAPICallingActionTypes('FETCH', 'ARTICLE_LISTS'), [
+  ...getAPICallingReducerHandlers(getAPICallingActionTypes('fetchArticleLists'), [
     fetchArticleListsFail,
     fetchArticleListsRequest,
     fetchArticleListsSucceed,

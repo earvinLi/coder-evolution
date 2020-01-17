@@ -39,7 +39,7 @@ const updateArticleText = (state, action) => ({
 });
 
 export default createReducer(INITIAL_STATE, {
-  ...getAPICallingReducerHandlers(getAPICallingActionTypes('SAVE', 'ARTICLE_TEXT'), [
+  ...getAPICallingReducerHandlers(getAPICallingActionTypes('saveArticle'), [
     saveArticleTextFail,
     saveArticleTextRequest,
     saveArticleTextSucceed,

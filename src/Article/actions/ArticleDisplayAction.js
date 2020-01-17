@@ -6,7 +6,7 @@ import {
 } from '../../App/ActionTypes';
 
 export const fetchArticle = () => ({
-  types: getAPICallingActionTypes('FETCH', 'ARTICLE_TEXT'),
+  types: getAPICallingActionTypes('fetchArticle'),
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
     const { currentArticle } = state.UI.Sidebar.Articles;

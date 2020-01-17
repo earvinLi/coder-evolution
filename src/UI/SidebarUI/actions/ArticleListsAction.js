@@ -6,7 +6,7 @@ import {
 } from '../../../App/ActionTypes';
 
 export const fetchArticleLists = () => ({
-  types: getAPICallingActionTypes('FETCH', 'ARTICLE_LISTS'),
+  types: getAPICallingActionTypes('fetchArticleLists'),
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
     return fetchRequest(`http://localhost:3001/article-lists/${user}`);
