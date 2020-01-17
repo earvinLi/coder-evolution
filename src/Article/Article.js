@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Internal Dependencies
+import ArticleAddDialog from './ArticleAddDialog';
 import ArticleDisplay from './ArticleDisplay';
 import ArticleEditor from './ArticleEditor';
 
@@ -11,7 +12,12 @@ import ArticleEditor from './ArticleEditor';
 const Article = (props) => {
   const { articleEditorIsOpen } = props;
 
-  return articleEditorIsOpen ? <ArticleEditor /> : <ArticleDisplay />;
+  return (
+    <>
+      {articleEditorIsOpen ? <ArticleEditor /> : <ArticleDisplay />}
+      <ArticleAddDialog />
+    </>
+  );
 };
 
 // Prop Validations

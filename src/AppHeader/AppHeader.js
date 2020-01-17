@@ -1,28 +1,58 @@
 // External Dependencies
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Material-UI Dependencies
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 
-// Component Definition
-const AppHeader = () => (
-  <AppBar position="static">
-    <Toolbar>
-      <Typography variant="h6">Coder Evolution</Typography>
-      <div style={{ flexGrow: 1 }} />
-      <IconButton
-        aria-label="account of current user"
-        color="inherit"
-        edge="end"
-      >
-        <AccountCircleIcon />
-      </IconButton>
-    </Toolbar>
-  </AppBar>
-);
+// Internal Dependencies
+import { openArticleAddDialog } from '../Article/actions/ArticleAddDialogAction';
 
-export default AppHeader;
+// Component Definition
+const AppHeader = (props) => {
+  const { onOpenArticleAddDialog } = props;
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6">Coder Evolution</Typography>
+        <div style={{ flexGrow: 1 }} />
+        <Tooltip title="Add Article">
+          <IconButton
+            aria-label="add article"
+            color="inherit"
+            edge="end"
+            onClick={onOpenArticleAddDialog}
+          >
+            <AddIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Account">
+          <IconButton
+            aria-label="account of current user"
+            color="inherit"
+            edge="end"
+          >
+            <AccountCircleIcon />
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+// Prop Validations
+AppHeader.propTypes = {
+  onOpenArticleAddDialog: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  onOpenArticleAddDialog: openArticleAddDialog,
+})(AppHeader);
