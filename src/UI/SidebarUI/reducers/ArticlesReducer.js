@@ -10,7 +10,7 @@ import {
 
 const INITIAL_STATE = {
   articleListUnderFetching: '',
-  currentArticle: 'JavaScript Foundations',
+  currentArticle: '',
   fetchError: '',
   fetchedArticles: {},
 };

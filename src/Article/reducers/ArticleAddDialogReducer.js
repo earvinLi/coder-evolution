@@ -30,7 +30,7 @@ const addArticleSucceed = (state, action) => ({
 });
 
 const closeArticleAddDialog = () => INITIAL_STATE;
-const openArticleAddDialog = (state) => ({ ...state, isOpen: true });
+const openArticleAddDialog = () => ({ ...INITIAL_STATE, isOpen: true });
 const toggleArticleListActionMode = (state) => ({
   ...state,
   toSelectArticleList: !state.toSelectArticleList,

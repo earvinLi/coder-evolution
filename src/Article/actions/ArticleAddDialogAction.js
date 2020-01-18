@@ -22,7 +22,8 @@ export const addArticle = () => ({
     const {
       articleList,
       articleName,
-    } = state.UI.Article.ArticleAddDialog;
+    } = state.Article.ArticleAddDialog;
+
     return fetchRequest('http://localhost:3001/article', {
       method: 'POST',
       body: JSON.stringify({

@@ -7,7 +7,7 @@ import { getAPICallingActionTypes } from '../../App/ActionTypes';
 
 const INITIAL_STATE = {
   articleSavedTime: 0,
-  fetchedArticleText: '# Week One',
+  fetchedArticleText: '',
   fetchError: '',
   isFetching: true,
 };

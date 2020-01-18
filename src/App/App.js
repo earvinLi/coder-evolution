@@ -9,9 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 // Internal Dependencies
 import AppHeader from '../AppHeader/AppHeader';
 import Article from '../Article/Article';
-import getAppStyles from './AppStyle';
+import getAppStyles from './styles/AppStyle';
 import Sidebar from '../Sidebar/Sidebar';
-
+import WelcomePage from './WelcomePage';
 
 // Component Definition
 const App = (props) => {
@@ -19,14 +19,17 @@ const App = (props) => {
     appContainerStyle,
   } = makeStyles((theme) => getAppStyles(theme))();
 
-  const { articleEditorIsOpen } = props;
+  const {
+    articleEditorIsOpen,
+    currentArticle,
+  } = props;
 
   return (
     <>
       <AppHeader />
       <div className={appContainerStyle}>
         {!articleEditorIsOpen && <Sidebar />}
-        <Article />
+        {!currentArticle ? <WelcomePage /> : <Article />}
       </div>
     </>
   );
@@ -35,12 +38,21 @@ const App = (props) => {
 // Prop Validations
 App.propTypes = {
   articleEditorIsOpen: PropTypes.bool.isRequired,
+  currentArticle: PropTypes.string,
+};
+
+App.defaultProps = {
+  currentArticle: '',
 };
 
 const mapStateToProps = (state) => {
+  const { currentArticle } = state.UI.Sidebar.Articles;
   const { isOpen: articleEditorIsOpen } = state.Article.ArticleEditor;
 
-  return { articleEditorIsOpen };
+  return {
+    articleEditorIsOpen,
+    currentArticle,
+  };
 };
 
 export default connect(mapStateToProps, null)(App);
