@@ -13,7 +13,7 @@ export const fetchArticle = () => ({
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
     const { currentArticle } = state.UI.Sidebar.Articles;
-    return fetchRequest(`http://localhost:3001/article/${user}/${currentArticle}`);
+    return fetchRequest(`/article/${user}/${currentArticle}`);
   },
 });
 

@@ -12,7 +12,7 @@ export const fetchArticles = (articleList) => ({
   types: getAPICallingActionTypes('fetchArticles'),
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
-    return fetchRequest(`http://localhost:3001/articles/${user}/${articleList}`);
+    return fetchRequest(`/articles/${user}/${articleList}`);
   },
   payload: { articleList },
   shouldCallAPI: (state) => !Object.prototype.hasOwnProperty.call(

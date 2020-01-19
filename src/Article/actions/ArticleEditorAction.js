@@ -16,7 +16,7 @@ export const saveArticleText = (articleText) => ({
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
     const { currentArticle } = state.UI.Sidebar.Articles;
-    return fetchRequest('http://localhost:3001/article', {
+    return fetchRequest('/article', {
       method: 'PUT',
       body: JSON.stringify({
         ArticleName: currentArticle,

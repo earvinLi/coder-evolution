@@ -9,7 +9,7 @@ export const fetchArticleLists = () => ({
   types: getAPICallingActionTypes('fetchArticleLists'),
   apiCallingFunction: (state) => {
     const user = state.Account.userEmail;
-    return fetchRequest(`http://localhost:3001/article-lists/${user}`);
+    return fetchRequest(`/article-lists/${user}`);
   },
 });
 

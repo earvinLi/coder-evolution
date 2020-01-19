@@ -1,4 +1,6 @@
 // Fetch Helper
+const baseURL = process.env.REACT_APP_PROD_BASE_URL;
+
 export const fetchRequest = async (url, options = {}) => {
   const optionsToUse = options;
   optionsToUse.headers = options.headers || {};
@@ -6,7 +8,7 @@ export const fetchRequest = async (url, options = {}) => {
   optionsToUse.headers['Content-Type'] = 'application/json';
 
   try {
-    const fetchedJSON = await fetch(url, optionsToUse);
+    const fetchedJSON = await fetch(`${baseURL}${url}`, optionsToUse);
     const fetched = await fetchedJSON.json();
     return fetched;
   } catch (error) {
