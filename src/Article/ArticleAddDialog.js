@@ -18,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
+import DotsLoader from '../SharedUnits/DotsLoader';
 import getArticleAddDialogStyles from './styles/ArticleAddDialogStyle';
 import TextButton from '../SharedUnits/TextButton';
 import {
@@ -33,6 +34,8 @@ import { openArticleEditor } from './actions/ArticleDisplayAction';
 const ArticleAddDialog = (props) => {
   const {
     articleSelectContainerStyle,
+    dotsLoaderDotStyle,
+    dotsLoaderWaveStyle,
   } = makeStyles((theme) => getArticleAddDialogStyles(theme))();
 
   const {
@@ -40,6 +43,7 @@ const ArticleAddDialog = (props) => {
     articleList,
     articleName,
     fetchedArticleLists,
+    isAddingArticle,
     onAddArticle,
     onCloseArticleAddDialog,
     onOpenArticleEditor,
@@ -130,12 +134,21 @@ const ArticleAddDialog = (props) => {
         >
           Cancel
         </Button>
-        <Button
-          color="primary"
-          onClick={onAddButtonClick}
-        >
-          Add
-        </Button>
+        {isAddingArticle
+          ? (
+            <DotsLoader
+              variantDotStyle={dotsLoaderDotStyle}
+              variantWaveStyle={dotsLoaderWaveStyle}
+            />
+          )
+          : (
+            <Button
+              color="primary"
+              onClick={onAddButtonClick}
+            >
+              Add
+            </Button>
+          )}
       </DialogActions>
     </Dialog>
   );
@@ -147,6 +160,7 @@ ArticleAddDialog.propTypes = {
   articleList: PropTypes.string,
   articleName: PropTypes.string,
   fetchedArticleLists: PropTypes.arrayOf(PropTypes.string),
+  isAddingArticle: PropTypes.bool.isRequired,
   onAddArticle: PropTypes.func.isRequired,
   onCloseArticleAddDialog: PropTypes.func.isRequired,
   onOpenArticleEditor: PropTypes.func.isRequired,
@@ -166,6 +180,7 @@ const mapStateToProps = (state) => {
   const {
     articleList,
     articleName,
+    isAdding: isAddingArticle,
     isOpen: articleAddDialogIsOpen,
     toSelectArticleList,
   } = state.Article.ArticleAddDialog;
@@ -176,6 +191,7 @@ const mapStateToProps = (state) => {
     articleList,
     articleName,
     fetchedArticleLists,
+    isAddingArticle,
     toSelectArticleList,
   };
 };
