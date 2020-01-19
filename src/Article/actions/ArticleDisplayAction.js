@@ -1,5 +1,8 @@
 // Internal Dependencies
-import { fetchRequest } from '../../App/RootUtilities';
+import {
+  createActionCreator,
+  fetchRequest,
+} from '../../App/RootUtilities';
 import {
   getAPICallingActionTypes,
   OPEN_ARTICLE_EDITOR,
@@ -14,11 +17,4 @@ export const fetchArticle = () => ({
   },
 });
 
-export const openArticleEditor = () => (dispatch, getState) => {
-  const { fetchedArticleText } = getState().Article.ArticleDisplay;
-
-  dispatch({
-    type: OPEN_ARTICLE_EDITOR,
-    articleText: fetchedArticleText,
-  });
-};
+export const openArticleEditor = createActionCreator(OPEN_ARTICLE_EDITOR, 'articleText');

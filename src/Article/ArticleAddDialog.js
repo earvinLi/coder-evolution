@@ -26,6 +26,8 @@ import {
   toggleArticleListActionMode,
   updateArticleAddInfo,
 } from './actions/ArticleAddDialogAction';
+import { openArticle } from '../UI/SidebarUI/actions/ArticlesAction';
+import { openArticleEditor } from './actions/ArticleDisplayAction';
 
 // Component Definition
 const ArticleAddDialog = (props) => {
@@ -40,13 +42,23 @@ const ArticleAddDialog = (props) => {
     fetchedArticleLists,
     onAddArticle,
     onCloseArticleAddDialog,
+    onOpenArticleEditor,
+    onOpenArticle,
     onToggleArticleListActionMode,
     onUpdateArticleAddInfo,
     toSelectArticleList,
   } = props;
 
+  // eslint-disable-next-line
+  const templateArticleText = `## Hi there! I'm your new article.\n\nYou can write anything here and the preview is on the right. When you are done, please click 'SAVE' at the very bottom right corner to save me.\n\nHave fun and cheers!\n\n---\n\nCheck this [doc](https://www.markdownguide.org/) if you have any problem working with Markdown syntaxes.\n`;
+
   const onArticleNameInputChange = (e) => onUpdateArticleAddInfo('articleName', e.target.value);
   const onArticleListInputChange = (e) => onUpdateArticleAddInfo('articleList', e.target.value);
+  const onAddButtonClick = async () => {
+    await onAddArticle();
+    onOpenArticleEditor(templateArticleText);
+    onOpenArticle(articleName);
+  };
 
   const articleListItems = fetchedArticleLists.map((articleListItem) => (
     <MenuItem
@@ -120,7 +132,7 @@ const ArticleAddDialog = (props) => {
         </Button>
         <Button
           color="primary"
-          onClick={onAddArticle}
+          onClick={onAddButtonClick}
         >
           Add
         </Button>
@@ -137,6 +149,8 @@ ArticleAddDialog.propTypes = {
   fetchedArticleLists: PropTypes.arrayOf(PropTypes.string),
   onAddArticle: PropTypes.func.isRequired,
   onCloseArticleAddDialog: PropTypes.func.isRequired,
+  onOpenArticleEditor: PropTypes.func.isRequired,
+  onOpenArticle: PropTypes.func.isRequired,
   onToggleArticleListActionMode: PropTypes.func.isRequired,
   onUpdateArticleAddInfo: PropTypes.func.isRequired,
   toSelectArticleList: PropTypes.bool.isRequired,
@@ -169,6 +183,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   onAddArticle: addArticle,
   onCloseArticleAddDialog: closeArticleAddDialog,
+  onOpenArticleEditor: openArticleEditor,
+  onOpenArticle: openArticle,
   onToggleArticleListActionMode: toggleArticleListActionMode,
   onUpdateArticleAddInfo: updateArticleAddInfo,
 })(ArticleAddDialog);

@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // Internal Dependencies
 import AppHeader from '../AppHeader/AppHeader';
 import Article from '../Article/Article';
+import ArticleAddDialog from '../Article/ArticleAddDialog';
 import getAppStyles from './styles/AppStyle';
 import Sidebar from '../Sidebar/Sidebar';
 import WelcomePage from './WelcomePage';
@@ -20,6 +21,7 @@ const App = (props) => {
   } = makeStyles((theme) => getAppStyles(theme))();
 
   const {
+    articleAddDialogIsOpen,
     articleEditorIsOpen,
     currentArticle,
   } = props;
@@ -30,6 +32,7 @@ const App = (props) => {
       <div className={appContainerStyle}>
         {!articleEditorIsOpen && <Sidebar />}
         {!currentArticle ? <WelcomePage /> : <Article />}
+        {articleAddDialogIsOpen && <ArticleAddDialog />}
       </div>
     </>
   );
@@ -37,6 +40,7 @@ const App = (props) => {
 
 // Prop Validations
 App.propTypes = {
+  articleAddDialogIsOpen: PropTypes.bool.isRequired,
   articleEditorIsOpen: PropTypes.bool.isRequired,
   currentArticle: PropTypes.string,
 };
@@ -48,8 +52,10 @@ App.defaultProps = {
 const mapStateToProps = (state) => {
   const { currentArticle } = state.UI.Sidebar.Articles;
   const { isOpen: articleEditorIsOpen } = state.Article.ArticleEditor;
+  const { isOpen: articleAddDialogIsOpen } = state.Article.ArticleAddDialog;
 
   return {
+    articleAddDialogIsOpen,
     articleEditorIsOpen,
     currentArticle,
   };

@@ -40,6 +40,8 @@ const ArticleDisplay = (props) => {
     onFetchArticle();
   }, [currentArticle, onFetchArticle, articleSavedTime]);
 
+  const onEditButtonClick = () => onOpenArticleEditor(fetchedArticleText);
+
   return isFetchingArticleText
     ? (
       <ContentLoadingScreen
@@ -55,7 +57,7 @@ const ArticleDisplay = (props) => {
             color="primary"
             size="large"
             startIcon={<EditOutlinedIcon />}
-            onClick={onOpenArticleEditor}
+            onClick={onEditButtonClick}
           >
             Edit
           </Button>

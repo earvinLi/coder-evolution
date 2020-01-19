@@ -17,7 +17,6 @@ const INITIAL_STATE = {
 };
 
 const closeArticleEditor = () => INITIAL_STATE;
-
 const openArticleEditor = (state, action) => ({
   articleText: action.articleText,
   isOpen: true,
