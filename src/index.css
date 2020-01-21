@@ -4,6 +4,11 @@ html, body {
   max-height: 100%;
 }
 
+.hljs-extended {
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 #root {
   display: flex;
   flex-direction: column;

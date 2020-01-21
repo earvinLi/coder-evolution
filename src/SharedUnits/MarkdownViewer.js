@@ -1,6 +1,5 @@
 // External Dependencies
 import PropTypes from 'prop-types';
-import marked from 'marked';
 import React from 'react';
 
 // Material-UI Dependencies
@@ -8,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // Internal Dependencies
 import getMarkdownViewerStyles from './styles/MarkdownViewerStyle';
+import markedEngine from '../App/RootUtilities/MarkedEngine';
 
 // Component Definition
 const MarkdownViewer = (props) => {
@@ -20,7 +20,7 @@ const MarkdownViewer = (props) => {
     variantStyle,
   } = props;
 
-  const markedText = marked(markdownText);
+  const markedText = markedEngine(markdownText);
 
   return (
     <div

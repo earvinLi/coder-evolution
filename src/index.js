@@ -1,4 +1,5 @@
 // External Dependencies
+import 'highlight.js/styles/a11y-dark.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReduxThunk from 'redux-thunk';
