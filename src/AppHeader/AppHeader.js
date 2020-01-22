@@ -17,23 +17,28 @@ import { openArticleAddDialog } from '../Article/actions/ArticleAddDialogAction'
 
 // Component Definition
 const AppHeader = (props) => {
-  const { onOpenArticleAddDialog } = props;
+  const {
+    articleEditorIsOpen,
+    onOpenArticleAddDialog,
+  } = props;
 
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6">Coder Evolution</Typography>
         <div style={{ flexGrow: 1 }} />
-        <Tooltip title="Add Article">
-          <IconButton
-            aria-label="add article"
-            color="inherit"
-            edge="end"
-            onClick={onOpenArticleAddDialog}
-          >
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
+        {!articleEditorIsOpen && (
+          <Tooltip title="Add Article">
+            <IconButton
+              aria-label="add article"
+              color="inherit"
+              edge="end"
+              onClick={onOpenArticleAddDialog}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        )}
         <Tooltip title="Account">
           <IconButton
             aria-label="account of current user"
@@ -50,9 +55,16 @@ const AppHeader = (props) => {
 
 // Prop Validations
 AppHeader.propTypes = {
+  articleEditorIsOpen: PropTypes.bool.isRequired,
   onOpenArticleAddDialog: PropTypes.func.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  const { isOpen: articleEditorIsOpen } = state.Article.ArticleEditor;
+
+  return { articleEditorIsOpen };
+};
+
+export default connect(mapStateToProps, {
   onOpenArticleAddDialog: openArticleAddDialog,
 })(AppHeader);
