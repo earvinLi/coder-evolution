@@ -7,12 +7,11 @@ import { connect } from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 
 // Internal Dependencies
+import TooltippedButton from '../SharedUnits/TooltippedButton';
 import { openArticleAddDialog } from '../Article/actions/ArticleAddDialogAction';
 
 // Component Definition
@@ -28,26 +27,19 @@ const AppHeader = (props) => {
         <Typography variant="h6">Coder Evolution</Typography>
         <div style={{ flexGrow: 1 }} />
         {!articleEditorIsOpen && (
-          <Tooltip title="Add Article">
-            <IconButton
-              aria-label="add article"
-              color="inherit"
-              edge="end"
-              onClick={onOpenArticleAddDialog}
-            >
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
+          <TooltippedButton
+            ariaLabel="add article"
+            icon={<AddIcon />}
+            onClick={onOpenArticleAddDialog}
+            tooltip="Add Article"
+          />
         )}
-        <Tooltip title="Account">
-          <IconButton
-            aria-label="account of current user"
-            color="inherit"
-            edge="end"
-          >
-            <AccountCircleIcon />
-          </IconButton>
-        </Tooltip>
+        <TooltippedButton
+          ariaLabel="account of current user"
+          icon={<AccountCircleIcon />}
+          onClick={() => {}}
+          tooltip="Account"
+        />
       </Toolbar>
     </AppBar>
   );
