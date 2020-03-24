@@ -1,19 +1,23 @@
 // Fetch Helper
 const baseURL = process.env.REACT_APP_PROD_BASE_URL;
 
+const handleFetchError = (err) => {
+  console.warn(err);
+  return new Response(JSON.stringify({
+    code: 400,
+    message: 'Bad Request',
+  }));
+};
+
 export const fetchRequest = async (url, options = {}) => {
   const optionsToUse = options;
   optionsToUse.headers = options.headers || {};
   // optionsToUse.headers.authorization = `Bearer ${token || ''}`;
   optionsToUse.headers['Content-Type'] = 'application/json';
 
-  try {
-    const fetchedJSON = await fetch(`${baseURL}${url}`, optionsToUse);
-    const fetched = await fetchedJSON.json();
-    return fetched;
-  } catch (error) {
-    throw new Error(`Fail to fetch. ${error}`);
-  }
+  const fetched = await (await (fetch(`${baseURL}${url}`, optionsToUse))
+    .catch(handleFetchError)).json();
+  return fetched;
 };
 
 // Action Helper

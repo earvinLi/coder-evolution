@@ -23,14 +23,10 @@ const apiCallingMiddleware = ({ dispatch, getState }) => (next) => async (action
   ] = types;
 
   dispatch({ type: requestType, ...payload });
+  const response = await apiCallingFunction(getState());
 
-  try {
-    const response = await apiCallingFunction(getState());
-    return dispatch({ type: succeedType, response, ...payload });
-  } catch (error) {
-    // TODO: Enable the reducers to handle failure cases
-    return dispatch({ type: failType, error });
-  }
+  if (response.code && response.code === 400) return dispatch({ type: failType, error: 'Bad Request' });
+  return dispatch({ type: succeedType, response, ...payload });
 };
 
 export default apiCallingMiddleware;
