@@ -1,4 +1,5 @@
-const roadGraph = require('./Graph');
+const roadGraph = require('./roads');
+// const ramdomItem = require('./random-item');
 const { randomPick } = require('./Utilities');
 
 class VillageState {
@@ -32,4 +33,21 @@ VillageState.random = (parcelCount = 5) => {
   return new VillageState('Post Office', parcels);
 };
 
-module.exports = VillageState;
+const runRobot = (state, robot, memory) => {
+  for (let turn = 0; ; turn += 1) {
+    if (state.parcels.length === 0) {
+      console.log(`Done in ${turn} turns.`);
+      break;
+    }
+
+    const action = robot(state, memory);
+    state = state.move(action.direction);
+    memory = action.memory;
+    console.log(`Moved to ${action.direction}`);
+  }
+};
+
+module.exports = {
+  VillageState,
+  runRobot,
+};

@@ -1,11 +1,12 @@
-const roadGraph = require('./Graph');
-
-// Random Route
+const roadGraph = require('./roads');
+// const ramdomItem = require('./random-item');
 const randomPick = (array) => {
   const choice = Math.floor(Math.random() * array.length);
   return array[choice];
 };
+// const dijkstrajs = require('./dijkstrajs');
 
+// Random Route
 const randomRobot = (state) => ({ direction: randomPick(roadGraph[state.place]) });
 
 // Mail Route
